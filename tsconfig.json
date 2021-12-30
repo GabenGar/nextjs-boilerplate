@@ -2,6 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "#server/*": [
+        "src/server/*"
+      ],
       "#pages/*": [
         "src/pages/*"
       ],
