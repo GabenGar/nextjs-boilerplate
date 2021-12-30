@@ -1,0 +1,6 @@
+{
+  "recommendations": [
+    "webben.browserslist",
+    "dbaeumer.vscode-eslint"
+  ]
+}

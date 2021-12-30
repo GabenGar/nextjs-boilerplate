@@ -7,6 +7,13 @@
 	"settings": {
 		"files.exclude": {
 			"**/node_modules": true
-		}
+		},
+		
+	},
+	"extensions": {
+		"recommendations": [
+			"eamodio.gitlens",
+			"mikestead.dotenv"
+		]
 	}
 }
