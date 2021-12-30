@@ -1,0 +1,64 @@
+@use "./variables/sass" as *;
+/* Attributes */
+// only selectors by attributes
+// and their pseudo-classes/elements go there
+// base tags are for easier grouping/folding
+
+a {
+  // internal links
+  // &[href^=#{$kemono-site}],
+  &[href^="/"],
+  &[href^="./"],
+  &[href^="../"] {
+    --local-colour1-primary: var(--anchour-internal-colour1-primary);
+    --local-colour1-secondary: var(--anchour-internal-colour1-secondary);
+    --local-colour2-primary: var(--anchour-internal-colour2-primary);
+    --local-colour2-secondary: var(--anchour-internal-colour2-secondary);
+  }
+
+  // local links
+  &[href^="#"] {
+    --local-colour1-primary: var(--anchour-local-colour1-primary);
+    // the same color because visited state is irrelevant
+    --local-colour1-secondary: var(--anchour-local-colour1-primary);
+    --local-colour2-primary: var(--anchour-local-colour2-primary);
+    --local-colour2-secondary: var(--anchour-local-colour2-secondary);
+  }
+
+  // email links
+  &[href^="mailto:"] {
+    // &::before {
+    //   content: "\1F4E7"; // email icon
+    //   padding-right: $size-little;
+    // }
+
+    &::after {
+      content: " (\01f4e8\02197\01f441)"; // mail sent, NE arrow, eye
+    }
+  }
+
+  // telephone links
+  &[href^="tel:"] {
+    &::before {
+      content: "\260e"; // phone icon
+      padding-right: $size-little;
+    }
+  }
+}
+
+input {
+  &[type="submit"] {
+    color: var(--colour0-primary);
+  }
+
+  &[type="text"],
+  &[type="password"],
+  &[type="number"] {
+    color: var(--colour0-primary);
+  }
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    cursor: pointer;
+  }
+}

@@ -1,11 +1,19 @@
 .header {
   grid-area: header;
+  color: var(--colour0-primary);
+  background-color: var(--colour1-tertiary);
+  padding: 1em 2em;
 }
 
 .body {
   grid-area: body;
+  color: var(--colour0-primary);
+  background-color: var(--colour1-tertiary);
 }
 
 .footer {
   grid-area: footer;
+  color: var(--colour0-primary);
+  background-color: var(--colour1-tertiary);
+  padding: 1em 2em;
 }

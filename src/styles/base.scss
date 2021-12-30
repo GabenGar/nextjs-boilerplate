@@ -1,8 +1,19 @@
+@use "./variables/sass" as *;
+
 html {
   width: 100%;
   height: 100%;
   font-size: 100%;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
   padding: 0;
   margin: 0;
 }
@@ -22,15 +33,133 @@ body {
   "header" auto
   "body" 1fr
   "footer" auto / 100%;
-  justify-items: center;
-  width: 100%;
+  justify-items: stretch;
   min-height: 100%;
+  width: 100%;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  padding: 0;
+h1 {
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: normal;
+  background-color: var(--colour1-primary);
+  padding: 0.5rem;
   margin: 0;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 1.35;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+h4 {
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+h5 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+h6 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+p,
+li,
+dd,
+dt {
+  line-height: 1.5;
+}
+
+p,
+ul,
+ol {
+  margin: $size-small 0;
+}
+
+ul,
+ol {
+  padding-left: $size-normal;
+}
+
+a {
+  --local-colour1-primary: var(--anchour-colour1-primary);
+  --local-colour1-secondary: var(--anchour-colour1-secondary);
+  --local-colour2-primary: var(--anchour-colour2-primary);
+  --local-colour2-secondary: var(--anchour-colour2-secondary);
+
+  outline: none;
+  text-decoration: none;
+  border-bottom: $size-nano solid transparent;
+  padding: 2px;
+  transition-property: color, border-color, background-color;
+  transition-duration: var(--duration-global);
+
+  &:link {
+    color: var(--local-colour1-primary);
+  }
+
+  &:visited {
+    color: var(--local-colour1-secondary);
+  }
+
+  &:focus {
+    background-color: var(--local-colour2-primary);
+    border-bottom-color: var(--local-colour1-primary);
+  }
+
+  &:hover {
+    background-color: var(--local-colour2-secondary);
+    border-bottom-color: var(--local-colour1-primary);
+  }
+
+  &:active {
+    color: var(--local-colour2-primary);
+    background-color: var(--local-colour1-primary);
+    border-bottom-color: var(--local-colour2-primary);
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+label {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}
+
+option {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+  // prevents onclick events from firing on children
+  & > * {
+    pointer-events: none;
+  }
 }
