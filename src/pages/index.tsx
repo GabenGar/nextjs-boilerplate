@@ -1,16 +1,21 @@
-import type { NextPage } from 'next'
+import { useEffect } from 'react';
 import Head from 'next/head'
-import Image from 'next/image'
+import { ERROR_MESSAGE } from '#environment/constant';
+import { BaseLayout } from '#components/layout'
 import styles from './index.module.scss'
 
-const Home: NextPage = () => {
-  const title = "FLYING POLLAR BUFFALLO ERROR"
+import type { ReactElement } from 'react';
+
+export function IndexPage() {
+  useEffect(() => {
+    console.log(ERROR_MESSAGE);
+  })
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>FLYING POLLAR BUFFALLO ERROR</title>
-        <meta name="description" content="FLYING POLLAR BUFFALLO ERROR" />
+        <title>{ERROR_MESSAGE}</title>
+        <meta name="description" content={ERROR_MESSAGE} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -21,19 +26,13 @@ const Home: NextPage = () => {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
       </footer>
     </div>
   )
 }
 
-export default Home
+IndexPage.getLayout = (page: ReactElement) => {
+  return <BaseLayout>{page}</BaseLayout>
+}
+
+export default IndexPage

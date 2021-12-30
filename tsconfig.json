@@ -2,15 +2,27 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "#environment/*": [
+        "environment/*"
+      ],
       "#server/*": [
         "src/server/*"
+      ],
+      "#lib/*": [
+        "src/lib/*/_index.ts"
+      ],
+      "#components/*": [
+        "src/components/*/_index.ts"
       ],
       "#pages/*": [
         "src/pages/*"
       ],
       "#styles/*": [
         "src/styles/*"
-      ]
+      ],
+      "#types/*": [
+        "src/types/*"
+      ],
     },
     "target": "es5",
     "lib": [
