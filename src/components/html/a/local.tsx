@@ -1,1 +1,1 @@
-export function LinkLocal () {}
+export function LinkLocal() {}
