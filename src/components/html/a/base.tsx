@@ -6,6 +6,9 @@ import type { BlockProps } from "#types/props";
 
 export interface HTMLAProps extends BlockProps<"a"> { }
 
-export const HTMLA = blockComponent<HTMLAProps>(styles.block, ({ children, ...htmlaProps }) => {
-  return (<a {...htmlaProps}>{children}</a>);
-})
+export const HTMLA = blockComponent<HTMLAProps>(
+  styles.block,
+  ({ children, ...htmlaProps }) => {
+    return (<a {...htmlaProps}>{children}</a>);
+  }
+)

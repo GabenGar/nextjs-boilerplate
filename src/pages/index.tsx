@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import Head from "next/head";
-import { ERROR_MESSAGE } from "#environment/constant";
+import { ERROR_MESSAGE } from "#environment/constants";
 import { BaseLayout } from "#components/layout";
-import styles from "./index.module.scss";
 
 import type { ReactElement } from "react";
 
@@ -11,21 +10,14 @@ export function IndexPage() {
     console.log(ERROR_MESSAGE);
   });
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>{ERROR_MESSAGE}</title>
-        <meta name="description" content={ERROR_MESSAGE} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>FLYING POLLAR BUFFALLO ERROR</h1>
-      </main>
-
-      <footer className={styles.footer}></footer>
-    </div>
-  );
+  return (<>
+    <Head>
+      <title>{ERROR_MESSAGE}</title>
+      <meta name="description" content={ERROR_MESSAGE} />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+    <h1>{ERROR_MESSAGE}</h1>
+  </>);
 }
 
 IndexPage.getLayout = (page: ReactElement) => {
