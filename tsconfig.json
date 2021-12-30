@@ -8,6 +8,12 @@
       "#server/*": [
         "src/server/*"
       ],
+      "#assets": [
+        "src/assets/_index.ts"
+      ],
+      "#assets/*": [
+        "src/assets/*"
+      ],
       "#lib/*": [
         "src/lib/*/_index.ts"
       ],
