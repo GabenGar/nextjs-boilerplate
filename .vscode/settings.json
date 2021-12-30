@@ -2,4 +2,14 @@
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.useAliasesForRenames": false,
   "typescript.preferences.importModuleSpecifier": "non-relative",
+  "json.schemas": [
+    {
+      "fileMatch": ["schema/*schema.json"],
+      "url": "./schema/base.schema.json"
+    },
+    {
+      "fileMatch": ["config.json"],
+      "url": "./schema/config.schema.json"
+    }
+  ]
 }
