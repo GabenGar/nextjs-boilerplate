@@ -7,3 +7,12 @@ export function fromISOString(dateString: string): Date {
 export function toISOString(date: Date): string {
   return formatISO(date);
 }
+
+export function isISOString(dateString: string) {
+  try {
+    parseISO(dateString);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
