@@ -7,3 +7,8 @@ export interface Account {
   email: string;
   role: string;
 }
+
+export interface AccCreds {
+  name: string
+  password: string
+}

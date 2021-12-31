@@ -4,7 +4,7 @@ import type { Account } from "#types/entities";
 
 const { db } = getDB();
 
-export async function createAcc(name: string, password: string) {
+export async function createAccount(name: string, password: string) {
   const query = `
     INSERT INTO accounts (name, password)
     VALUES ($(name), $(password))

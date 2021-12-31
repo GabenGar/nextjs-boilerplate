@@ -1,43 +1,47 @@
-export function registerAccount(name: string, password: string) {
-  const result = [validateName(name), validatePassword(password)].every(
-    ({ isValid }) => isValid
+import { createAccount } from "#database/queries/account";
+import { accountSchema, ValidationErrors } from "#types/schemas";
+
+import type { AccCreds } from "#types/entities";
+import { validateSchemaProperty } from "#lib/json-shema";
+
+interface ValidationResult {
+  isValid: boolean;
+  errors?: ValidationErrors;
+}
+
+export async function registerAccount(accCreds: AccCreds) {
+  await createAccount(accCreds.name, accCreds.password);
+}
+
+export function validateRegCreds(accCreds: AccCreds): ValidationResult {
+  const errors = Object.entries(accCreds).reduce<ValidationErrors>(
+    (errors, [key, value]) => {
+      const schemaProperty = accountSchema.properties[key];
+      const validationErrors = validateSchemaProperty(
+        key,
+        value,
+        schemaProperty
+      );
+
+      if (validationErrors.size) {
+        for (const [key, keyErrors] of Array.from(validationErrors)) {
+          if (errors.has(key)) {
+            errors.set(key, [...errors.get(key)!, ...keyErrors]);
+          } else {
+            errors.set(key, keyErrors);
+          }
+        }
+      }
+
+      return errors;
+    },
+    new ValidationErrors()
   );
 
-  if (!result) {
-    return [false, ]
-  }
-
-
+  return {
+    isValid: Boolean(errors.size),
+    errors,
+  };
 }
 
-function validateName(name: string) {
-  const formattedName = name.trim();
-  const errors: Error[] = [];
 
-  if (formattedName.length < 5) {
-    errors.push(new Error("The name is too short"));
-  }
-
-  if (errors.length) {
-    return { isValid: false, errors };
-  }
-
-  return { isValid: true, result: formattedName };
-}
-
-function validatePassword(password: string) {
-  const formattedPassword = password.trim();
-  const errors: Error[] = [];
-
-  if (formattedPassword.length < 8) {
-    errors.push(new Error("The password is too short"));
-  }
-
-  if (errors.length) {
-    return { isValid: false, errors };
-  }
-
-  return { isValid: true, result: formattedPassword };
-}
-
-function saveNewAccount(name: string, password: string) {}
