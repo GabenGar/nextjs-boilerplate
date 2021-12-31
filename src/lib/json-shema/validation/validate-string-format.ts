@@ -1,3 +1,4 @@
+import validator from 'validator';
 import { isISOString } from "#lib/util/dates";
 import { ValidationErrors } from "#types/schemas";
 
@@ -6,7 +7,7 @@ const stringTypes: Map<string, (value: string) => boolean> = new Map([
   ["date-time", (value) => isISOString(value)],
   ["time", (value) => false],
   ["date", (value) => false],
-  ["email", (value) => true],
+  ["email", (value) => validator.isEmail(value)],
   ["idn-email", (value) => false],
   ["hostname", (value) => false],
   ["idn-hostname", (value) => false],
@@ -25,7 +26,7 @@ const stringTypes: Map<string, (value: string) => boolean> = new Map([
 export function validateStringFormat(
   key: string,
   value: string,
-  format: string
+  format: string = "plain"
 ) {
   const errors = new ValidationErrors();
 
