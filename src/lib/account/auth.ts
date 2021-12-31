@@ -1,4 +1,4 @@
-export function createAccount(name: string, password: string) {
+export function registerAccount(name: string, password: string) {
   const result = [validateName(name), validatePassword(password)].every(
     ({ isValid }) => isValid
   );

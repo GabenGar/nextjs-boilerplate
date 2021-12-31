@@ -8,6 +8,9 @@
       "#server/*": [
         "src/server/*"
       ],
+      "#database": [
+        "src/database/_index.ts"
+      ],
       "#database/*": [
         "src/database/*/_index.ts"
       ],

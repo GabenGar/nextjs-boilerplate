@@ -1,7 +1,8 @@
 import Head from "next/head";
+
 import type { GetServerSideProps } from "next";
 
-export function RegisterPage({ }) {
+export function RegisterPage() {
   return (<>
     <Head>
       <title>Register</title>
@@ -24,7 +25,7 @@ export function RegisterPage({ }) {
   </>);
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, previewData }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   
   return {
     props: {}
