@@ -1,0 +1,38 @@
+@use "../../../styles/variables/sass" as *;
+@use "../../../styles/mixins" as mixins;
+
+.block {
+  --local-colour1-primary: var(--colour0-primary);
+  --local-colour1-secondary: var(--colour0-secondary);
+  --local-colour1-tertiary: var(--colour0-tertiary);
+  --local-colour2-primary: var(--colour1-primary);
+  --local-colour2-secondary: var(--colour1-secondary);
+  --local-colour2-tertiary: var(--colour1-tertiary);
+
+  @include mixins.form-input();
+  width: auto;
+  color: var(--local-colour1-primary);
+  background-color: var(--local-colour2-secondary);
+  border: $size-nano solid var(--local-colour1-secondary);
+  box-shadow: inset 2px 2px 3px hsla(0, 0%, 90%, 40%),
+    inset -2px -2px 3px hsla(0, 0%, 0%, 50%);
+
+  transition-duration: var(--duration-global);
+  transition-property: opacity, box-shadow, background-color, border-color;
+
+  &:focus,
+  &:hover {
+    background-color: var(--local-colour2-primary);
+  }
+  &:active {
+    box-shadow: inset 2px 2px 3px hsla(0, 0%, 0%, 50%),
+      inset -2px -2px 3px hsla(0, 0%, 90%, 40%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    background-color: var(--local-colour2-secondary);
+    box-shadow: inset 2px 2px 3px hsla(0, 0%, 90%, 40%),
+    inset -2px -2px 3px hsla(0, 0%, 0%, 50%);
+  }
+}

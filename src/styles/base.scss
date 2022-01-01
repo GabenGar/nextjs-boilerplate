@@ -22,17 +22,17 @@ body {
   width: 100%;
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   padding: 0;
   margin: 0;
 }
 
 *[data-reactroot] {
   display: grid;
-  grid-template: 
-  "header" auto
-  "body" 1fr
-  "footer" auto / 100%;
+  grid-template:
+    "header" auto
+    "body" 1fr
+    "footer" auto / 100%;
   justify-items: stretch;
   min-height: 100%;
   width: 100%;
@@ -157,9 +157,13 @@ button {
 
   &:disabled {
     cursor: not-allowed;
+
+    & * {
+      pointer-events: none;
+    }
   }
   // prevents onclick events from firing on children
-  & > * {
+  & * {
     pointer-events: none;
   }
 }

@@ -1,0 +1,13 @@
+@use "variables/sass" as vars;
+
+@mixin form-input($border-radius: 5px) {
+  box-sizing: border-box;
+  min-height: 44px;
+  min-width: 44px;
+  width: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  border-radius: $border-radius;
+  padding: vars.$size-small;
+  margin: 0;
+}

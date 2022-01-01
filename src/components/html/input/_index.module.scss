@@ -1,0 +1,6 @@
+@use "../../../styles/variables/sass" as *;
+@use "../../../styles/mixins" as mixins;
+
+.block {
+  @include mixins.form-input
+}

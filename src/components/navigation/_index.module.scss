@@ -1,1 +1,19 @@
-.block {}
+@use "../../styles/variables/sass" as *;
+
+.block {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: $size-normal;
+}
+
+.list {
+}
+
+.item {
+}
+
+.link {
+  text-transform: capitalize;
+}

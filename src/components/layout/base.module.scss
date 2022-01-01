@@ -1,19 +1,33 @@
+@use "../../styles/variables/sass" as *;
+
+.header,
+.body,
+.footer {
+  color: var(--colour0-primary);
+
+  transition-duration: var(--duration-global);
+  transition-property: color, background-color;
+}
+
 .header {
   grid-area: header;
-  color: var(--colour0-primary);
-  background-color: var(--colour1-tertiary);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: $size-normal;
+
+  background-color: var(--colour1-secondary-transparent);
   padding: 1em 2em;
 }
 
 .body {
   grid-area: body;
-  color: var(--colour0-primary);
   background-color: var(--colour1-tertiary);
 }
 
 .footer {
   grid-area: footer;
-  color: var(--colour0-primary);
-  background-color: var(--colour1-tertiary);
+  background-color: var(--colour1-secondary-transparent);
   padding: 1em 2em;
 }

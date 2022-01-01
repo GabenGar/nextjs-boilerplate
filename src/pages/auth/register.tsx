@@ -1,6 +1,8 @@
 import Head from "next/head";
-
-import type { GetServerSideProps } from "next";
+import { HTMLButton } from "#components/html/button";
+import { HTMLForm } from "#components/html/form";
+import { HTMLLabel } from "#components/html/label";
+import { InputText, InputPassword } from "#components/inputs";
 
 export function RegisterPage() {
   return (<>
@@ -9,27 +11,21 @@ export function RegisterPage() {
       <meta name="description" content="Register" />
     </Head>
     <h1>Register</h1>
-    <form method="POST">
+    <HTMLForm action="/api/v1/auth/register" method="POST">
       <div>
-        <label htmlFor="acc-name">Name</label>
-        <input type="text" name="name" id="acc-name" />
+        <HTMLLabel htmlFor="acc-name">Name</HTMLLabel>
+        <InputText id="acc-name" name="name" />
       </div>
       <div>
-        <label htmlFor="acc-password">Password</label>
-        <input type="password" name="password" id="acc-password" />
+        <HTMLLabel htmlFor="acc-password">Password</HTMLLabel>
+        <InputPassword id="acc-password" name="password" />
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <HTMLButton type="submit" disabled>Submit</HTMLButton>
       </div>
-    </form>
+    </HTMLForm>
   </>);
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  
-  return {
-    props: {}
-  }
-}
 
 export default RegisterPage;

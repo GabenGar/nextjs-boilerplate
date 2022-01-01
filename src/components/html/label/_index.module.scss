@@ -1,0 +1,7 @@
+@use "../../../styles/variables/sass" as *;
+
+.block {
+  display: inline-block;
+  font-weight: bold;
+  padding: $size-thin 0;
+}
