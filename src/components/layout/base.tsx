@@ -1,6 +1,6 @@
 import { LinkInternal } from "#components/links";
 import { ERROR_MESSAGE } from "#environment/constants";
-import styles from "./_index.module.scss";
+import styles from "./base.module.scss";
 
 import type { RootlessProps } from "#types/props";
 
