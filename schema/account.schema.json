@@ -1,12 +1,8 @@
 {
   "title": "Account",
   "description": "Account on the resource.",
-  "required": [
-    "id",
-    "created_at",
-    "name",
-    "password"
-  ],
+  "type": "object",
+  "required": ["id", "created_at", "name", "password"],
   "properties": {
     "id": {
       "type": "integer"

@@ -1,8 +1,10 @@
+import { JSONSchema, SchemaProperty } from "#lib/json-schema/types";
 
 
-export const accountSchema = {
+export const accountSchema: JSONSchema = {
   title: "Account",
   description: "Account on the resource.",
+  type: "object",
   required: ["id", "created_at", "name", "password"],
   properties: {
     id: {
@@ -31,5 +33,5 @@ export const accountSchema = {
     role: {
       type: "string",
     },
-  } as Record<string, SchemaProperty>,
+  },
 };

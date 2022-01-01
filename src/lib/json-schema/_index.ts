@@ -1,0 +1,1 @@
+export { validateAgainstSchema } from "./validation/_index";

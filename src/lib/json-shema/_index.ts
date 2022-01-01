@@ -1,1 +1,0 @@
-export { validateSchemaProperty } from "./validation/validate-property";

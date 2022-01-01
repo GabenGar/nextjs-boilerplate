@@ -24,11 +24,21 @@ export class ValidationErrors extends Map<string, Error[]> {
    * @param key
    * @param error
    */
-  addError(key: string, error: Error) {
-    if (!this.has(key)) {
-      this.set(key, [error]);
-    } else {
-      this.get(key)!.push(error);
+  addError(key: string, error: Error | string) {
+    if (typeof error === "string") {
+      if (!this.has(key)) {
+        this.set(key, [Error(error)]);
+      } else {
+        this.get(key)!.push(Error(error));
+      }
+    }
+
+    if (error instanceof Error) {
+      if (!this.has(key)) {
+        this.set(key, [error]);
+      } else {
+        this.get(key)!.push(error);
+      }
     }
 
     return this;
