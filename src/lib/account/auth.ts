@@ -8,8 +8,9 @@ export async function registerAccount(accCreds: AccCreds) {
   const { isValid, errors } = validateAgainstSchema(accCreds, accountSchema);
 
   if (!isValid) {
-    return errors
+    return errors;
   }
 
-  await createAccount(accCreds.name, accCreds.password);
+  const account = await createAccount(accCreds.name, accCreds.password);
+  return account;
 }

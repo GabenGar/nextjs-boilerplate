@@ -44,11 +44,14 @@ export class ValidationErrors extends Map<string, Error[]> {
     return this;
   }
 
+  /**
+   * @returns A dictionary of keys and arrays of error strings as values.
+   */
   toDict() {
-    const errorsDict: Record<string, Error[]> = {};
+    const errorsDict: Record<string, string[]> = {};
 
     for (const [key, errors] of Array.from(this.entries())) {
-      errorsDict[key] = errors;
+      errorsDict[key] = errors.map((error) => error.toString());
     }
 
     return errorsDict;

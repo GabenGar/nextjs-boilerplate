@@ -1,0 +1,1 @@
+export { registerAccount } from "./account"

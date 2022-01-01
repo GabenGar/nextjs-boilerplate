@@ -4,8 +4,8 @@ export interface Account {
   updated_at: string;
   name: string;
   password: string;
-  email: string;
-  role: string;
+  email?: string;
+  role?: string;
 }
 
 export interface AccCreds {
