@@ -1,8 +1,6 @@
-import { getDB } from "./init";
+import type { IDatabase } from "pg-promise";
 
-const { db } = getDB();
-
-export async function testConnection() {
+export async function testConnection(db: IDatabase<any>) {
   // try to connect
   const conn = await db.connect();
   // success, release connection

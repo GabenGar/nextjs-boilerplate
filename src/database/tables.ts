@@ -1,10 +1,11 @@
-import { getDB } from "#database";
 import { testConnection } from "./lib";
 
-export async function setupTables() {
-  const { db } = getDB();
-  const version = await testConnection();
-  console.log(version);
+import type { IDatabase } from "pg-promise";
+
+export async function setupTables(db: IDatabase<any>) {
+  const version = await testConnection(db);
+  console.log("Postgresql version: ", version);
+
   console.log("Setting up tables.");
   const accountsQuery = `
     CREATE TABLE IF NOT EXISTS accounts (
@@ -14,7 +15,7 @@ export async function setupTables() {
       "name" TEXT NOT NULL,
       "password" TEXT NOT NULL,
       "email" TEXT,
-      "role" TEXT
+      "role" TEXT,
       UNIQUE ("name", "email")
     )
   `;
