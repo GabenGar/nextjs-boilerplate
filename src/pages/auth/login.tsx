@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { registerAccount } from "#lib/api/site";
+import { loginAccount } from "#lib/api/site";
 import { Form } from "#components/forms";
 import { FormSectionPassword, FormSectionText } from "#components/forms/sections";
 
@@ -17,7 +17,7 @@ export function LoginPage() {
     const name = fields["name"].value
     const password = fields["password"].value
 
-    const { success, errors } = await registerAccount({
+    const { success, errors } = await loginAccount({
       name,
       password
     });
@@ -29,15 +29,15 @@ export function LoginPage() {
 
   return (<>
     <Head>
-      <title>Register</title>
-      <meta name="description" content="Register" />
+      <title>Login</title>
+      <meta name="description" content="Login" />
     </Head>
-    <h1>Register</h1>
-    <Form action="/api/v1/auth/register" method="POST" onSubmit={handleSubmit}>
+    <h1>Login</h1>
+    <Form action="/api/v1/auth/login" method="POST" onSubmit={handleSubmit}>
       <FormSectionText id="acc-name" name="name" required>
         Name
       </FormSectionText>
-      <FormSectionPassword id="acc-password" name="password" required>
+      <FormSectionPassword id="acc-password" name="password" required isNew={false}>
         Password
       </FormSectionPassword>
     </Form>

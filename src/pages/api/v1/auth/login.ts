@@ -15,18 +15,26 @@ export default async function handleAccountRegistration(
       const result = await loginAccount(accCreds);
 
       if (result instanceof ValidationErrors) {
-        res.status(422).json({ success: false, errors: result.toDict() });
+        return res
+          .status(422)
+          .json({ success: false, errors: result.toDict() });
       }
 
       if (!result) {
-        res.status(400).json({ success: false, errors: ["The user with these credentials doesn't exist on the site."] })
+        return res
+          .status(400)
+          .json({
+            success: false,
+            errors: [
+              "The user with these credentials doesn't exist on the site.",
+            ],
+          });
       }
 
-      res.status(200).json({ success: true, data: result! });
-
+      return res.status(200).json({ success: true, data: result });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ success: false });
+      res.status(500).json({ success: false, errors: ["Unknown error."] });
     }
   }
 }

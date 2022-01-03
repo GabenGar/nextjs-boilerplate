@@ -8,7 +8,9 @@ import type { NavItem } from "#components/navigation";
 export interface LayoutProps extends RootlessProps { }
 
 const globalNav: NavItem[] = [
-  { link: "/auth/register", title: "register" }
+  { link: "/auth/register", title: "register" },
+  { link: "/auth/login", title: "login" },
+  // { link: "/auth/logout", title: "logout" }
 ]
 
 export function BaseLayout({ children }: LayoutProps) {

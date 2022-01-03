@@ -1,8 +1,9 @@
+import { AuthError } from "#types/errors";
 import { registerAccount } from "#lib/account";
 import { ValidationErrors } from "#lib/json-schema/types";
-import { APIResponse } from "#types/api";
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import type { APIResponse } from "#types/api";
 import type { AccCreds } from "#types/entities";
 
 export default async function handleAccountRegistration(
@@ -18,8 +19,11 @@ export default async function handleAccountRegistration(
         res.status(422).json({ success: false, errors: result.toDict() });
       }
 
-      res.status(200).json({ success: true });
+      if (result instanceof AuthError) {
+        res.status(400).json({ success: false, errors: [result.message] });
+      }
 
+      res.status(200).json({ success: true });
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false });
