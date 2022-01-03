@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { registerAccount } from "#lib/api/site";
-import { HTMLButton } from "#components/html/button";
-import { HTMLForm } from "#components/html/form";
-import { HTMLLabel } from "#components/html/label";
-import { InputText, InputPassword } from "#components/inputs";
+import { Form } from "#components/forms";
 import { FormSectionPassword, FormSectionText } from "#components/forms/sections";
 
 import type { SubmitArgs } from "#components/html/form";
@@ -36,17 +33,14 @@ export function RegisterPage() {
       <meta name="description" content="Register" />
     </Head>
     <h1>Register</h1>
-    <HTMLForm action="/api/v1/auth/register" method="POST" onSubmit={handleSubmit}>
+    <Form action="/api/v1/auth/register" method="POST" onSubmit={handleSubmit}>
       <FormSectionText id="acc-name" name="name" required>
         Name
       </FormSectionText>
       <FormSectionPassword id="acc-password" name="password" required>
         Password
       </FormSectionPassword>
-      <div>
-        <HTMLButton type="submit">Submit</HTMLButton>
-      </div>
-    </HTMLForm>
+    </Form>
   </>);
 }
 
