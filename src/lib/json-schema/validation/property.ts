@@ -1,5 +1,6 @@
 import { validateStringFormat } from "./string-format";
-import { propertyTypes, ValidationErrors } from "#lib/json-schema/types";
+import { NotImplementedError } from "#types/errors";
+import { ValidationErrors } from "#lib/json-schema/types";
 
 import type {
   SchemaPropertyValidationFunction,
@@ -31,7 +32,6 @@ export const validateStringProperty: SchemaPropertyValidationFunction = (
   schemaProperty,
   errors
 ) => {
-
   if (typeof value !== "string") {
     return errors.addError(key, Error(`Key "${key}" is not a string.`));
   }
@@ -64,4 +64,41 @@ export const validateStringProperty: SchemaPropertyValidationFunction = (
   }
 
   return errors;
+};
+
+export const propertyTypes: Record<string, SchemaPropertyValidationFunction> = {
+  array(key, value, schemaProperty, errors) {
+    if (!Array.isArray(value)) {
+      return errors.addError(key, Error(`Key "${key}" is not an array.`));
+    }
+    throw new NotImplementedError();
+    return errors;
+  },
+  boolean(key, value, schemaProperty, errors) {
+    if (typeof value !== "boolean") {
+      return errors.addError(key, Error(`Key "${key}" is not a boolean.`));
+    }
+    throw new NotImplementedError();
+    return errors;
+  },
+  integer(key, value, schemaProperty, errors) {
+    throw new NotImplementedError();
+    return errors;
+  },
+  null(key, value, schemaProperty, errors) {
+    if (value !== null) {
+      return errors.addError(key, Error(`Key "${key}" is not a null.`));
+    }
+    throw new NotImplementedError();
+    return errors;
+  },
+  number(key, value, schemaProperty, errors) {
+    throw new NotImplementedError();
+    return errors;
+  },
+  object(key, value, schemaProperty, errors) {
+    throw new NotImplementedError();
+    return errors;
+  },
+  string: validateStringProperty,
 };

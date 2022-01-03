@@ -1,4 +1,4 @@
-import { SchemaProperty, ValidationErrors } from "#lib/json-schema/types";
+import {  ValidationErrors } from "#lib/json-schema/types";
 import type {
   JSONTypes,
   SchemaValidationFunction,

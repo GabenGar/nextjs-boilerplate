@@ -5,7 +5,7 @@ interface IAccountPageProps {
   account: Account
 }
 
-export function AccountPage({ account }: IAccountPageProps) {
+function AccountPage({ account }: IAccountPageProps) {
   return (<>
     <Head>
       <title>Account page</title>

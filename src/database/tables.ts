@@ -1,8 +1,11 @@
 import { getDB } from "#database";
-
-const { db } = getDB();
+import { testConnection } from "./lib";
 
 export async function setupTables() {
+  const { db } = getDB();
+  const version = await testConnection();
+  console.log(version);
+  console.log("Setting up tables.");
   const accountsQuery = `
     CREATE TABLE IF NOT EXISTS accounts (
       "id" SERIAL PRIMARY KEY,
@@ -17,4 +20,5 @@ export async function setupTables() {
   `;
 
   await db.none(accountsQuery);
+  console.log("Finished setting tables up.");
 }
