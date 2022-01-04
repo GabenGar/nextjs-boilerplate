@@ -1,47 +1,94 @@
 import Head from "next/head";
-import { registerAccount } from "#lib/api/site";
+import { AuthError } from "#types/errors";
+import { getReqBody } from "#lib/util";
+import { validateAccountFields, registerAccount } from "#lib/account";
 import { Form } from "#components/forms";
-import { FormSectionPassword, FormSectionText } from "#components/forms/sections";
+import { ErrorsView } from "#components/errors";
+import {
+  FormSectionPassword,
+  FormSectionText,
+} from "#components/forms/sections";
 
-import type { SubmitArgs } from "#components/html/form";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { AccCreds } from "#types/entities";
+import type { BasePageProps } from "#types/pages";
 
-interface FormFields extends HTMLFormControlsCollection {
-  name: HTMLInputElement
-  password: HTMLInputElement
+interface RegisterPageProps extends BasePageProps {
+  accCreds?: AccCreds;
 }
 
-export function RegisterPage() {
-  async function handleSubmit(event: SubmitArgs) {
-    const form = event.target as HTMLFormElement;
-    const fields = form.elements as FormFields;
-    const name = fields["name"].value
-    const password = fields["password"].value
+export function RegisterPage({
+  accCreds,
+  errors,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  return (
+    <>
+      <Head>
+        <title>Register</title>
+        <meta name="description" content="Register" />
+      </Head>
+      <h1>Register</h1>
+      <Form method="POST">
+        <FormSectionText
+          id="acc-name"
+          name="name"
+          required
+          defaultValue={accCreds?.name}
+        >
+          Name
+        </FormSectionText>
+        <FormSectionPassword
+          id="acc-password"
+          name="password"
+          required
+          defaultValue={accCreds?.password}
+        >
+          Password
+        </FormSectionPassword>
+        {errors && <ErrorsView errors={errors} />}
+      </Form>
+      
+    </>
+  );
+}
 
-    const { success, errors } = await registerAccount({
-      name,
-      password
-    });
+export const getServerSideProps: GetServerSideProps<
+  RegisterPageProps
+> = async ({ req }) => {
+  if (req.method === "POST") {
+    const accCreds = await getReqBody<AccCreds>(req);
+    const { isValid, errors } = validateAccountFields(accCreds);
 
-    if (!success && errors) {
-      console.error(errors);
+    if (!isValid) {
+      return {
+        props: {
+          errors: errors!.toDict(),
+          accCreds
+        },
+      };
     }
+
+    const result = await registerAccount(accCreds);
+
+    if (result instanceof AuthError) {
+      return {
+        props: {
+          errors: [result.message],
+          accCreds
+        },
+      };
+    }
+    return {
+      redirect: {
+        destination: "/account",
+        permanent: false,
+      },
+    };
   }
 
-  return (<>
-    <Head>
-      <title>Register</title>
-      <meta name="description" content="Register" />
-    </Head>
-    <h1>Register</h1>
-    <Form action="/api/v1/auth/register" method="POST" onSubmit={handleSubmit}>
-      <FormSectionText id="acc-name" name="name" required>
-        Name
-      </FormSectionText>
-      <FormSectionPassword id="acc-password" name="password" required>
-        Password
-      </FormSectionPassword>
-    </Form>
-  </>);
-}
+  return {
+    props: {},
+  };
+};
 
 export default RegisterPage;

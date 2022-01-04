@@ -18,7 +18,7 @@ export interface GlobalNavProps extends HTMLNavProps {
 export const GlobalNav = blockComponent<GlobalNavProps>(
   styles.block,
   ({ navItems, ...blockProps }) => {
-    return (<HTMLNav className={styles.block} {...blockProps}>
+    return (<HTMLNav {...blockProps}>
       <HTMLUl className={styles.list}>
         {navItems.map(({ link, title }) => (
           <li key={link + title} className={styles.item}>

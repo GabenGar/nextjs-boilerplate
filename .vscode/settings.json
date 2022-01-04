@@ -12,5 +12,11 @@
       "fileMatch": ["config.json"],
       "url": "./schema/config.schema.json"
     }
-  ]
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
 }

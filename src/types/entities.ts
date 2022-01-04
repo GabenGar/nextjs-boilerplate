@@ -11,4 +11,5 @@ export interface Account {
 export interface AccCreds {
   name: string
   password: string
+  email?: string
 }

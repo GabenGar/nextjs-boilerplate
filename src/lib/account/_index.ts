@@ -1,2 +1,2 @@
-export { registerAccount, loginAccount } from "./auth";
+export { registerAccount, loginAccount, validateAccountFields } from "./auth";
 

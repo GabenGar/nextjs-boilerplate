@@ -1,21 +1,23 @@
-import { createAccount, findAccount } from "#database/queries/account";
-import { validateAgainstSchema } from "#lib/json-schema/validation";
+import {
+  createAccount,
+  findAccountByName,
+  findAccount,
+} from "#database/queries/account";
+import { createSchemaValidation } from "#lib/json-schema/validation";
 import { accountSchema } from "#types/schemas";
 import { AuthError } from "#types/errors";
 
-import type { AccCreds } from "#types/entities";
+import { AccCreds, Account } from "#types/entities";
+
+export const validateAccountFields = createSchemaValidation<Account | AccCreds>(
+  accountSchema
+);
 
 export async function registerAccount(accCreds: AccCreds) {
-  const { isValid, errors } = validateAgainstSchema(accCreds, accountSchema);
-
-  if (!isValid) {
-    return errors!;
-  }
-
-  const existingAccount = await findAccount(accCreds);
+  const existingAccount = await findAccountByName(accCreds);
 
   if (existingAccount) {
-    return new AuthError("Account already exists.");
+    return new AuthError("Account with this name already exists.");
   }
 
   const account = await createAccount(accCreds.name, accCreds.password);
@@ -23,12 +25,11 @@ export async function registerAccount(accCreds: AccCreds) {
 }
 
 export async function loginAccount(accCreds: AccCreds) {
-  const { isValid, errors } = validateAgainstSchema(accCreds, accountSchema);
+  const account = await findAccount(accCreds);
 
-  if (!isValid) {
-    return errors!;
+  if (!account) {
+    return new AuthError("Account with these credentials doesn' exist.");
   }
 
-  const account = await findAccount(accCreds);
   return account;
 }

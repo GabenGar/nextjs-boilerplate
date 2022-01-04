@@ -1,11 +1,27 @@
-import {  ValidationErrors } from "#lib/json-schema/types";
+import { ValidationErrors } from "#lib/json-schema/types";
 import type {
   JSONTypes,
+  JSONKeyTypes,
   SchemaValidationFunction,
   JSONSchema,
   ValidationResult,
 } from "#lib/json-schema/types";
 import { validateSchemaProperty } from "#lib/json-schema/validation";
+
+export function createSchemaValidation<T>(schema: JSONSchema) {
+  return (jsonObj: T): ValidationResult => {
+    const errors = schemaTypes[schema.type](
+      jsonObj,
+      schema,
+      new ValidationErrors()
+    );
+
+    return {
+      isValid: !errors.size,
+      errors,
+    };
+  };
+}
 
 export const validateObjectSchema: SchemaValidationFunction = (
   json,
@@ -67,19 +83,3 @@ export const schemaTypes: Record<JSONTypes, SchemaValidationFunction> = {
     return errors;
   },
 };
-
-export function validateAgainstSchema(
-  json: unknown,
-  jsonSchema: JSONSchema
-): ValidationResult {
-  const errors = schemaTypes[jsonSchema.type](
-    json,
-    jsonSchema,
-    new ValidationErrors()
-  );
-
-  return {
-    isValid: !errors.size,
-    errors,
-  };
-}
