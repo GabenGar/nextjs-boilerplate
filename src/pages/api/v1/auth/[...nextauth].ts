@@ -15,6 +15,5 @@ export default NextAuth({
       clientId: GITHUB_ID,
       clientSecret: GITHUB_SECRET,
     }),
-    // ...add more providers here
   ],
 });

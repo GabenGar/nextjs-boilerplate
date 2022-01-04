@@ -1,6 +1,6 @@
 import type { Adapter } from "next-auth/adapters";
 
-function MyAdapter(): Adapter {
+function MyAdapter(client, options = {}): Adapter {
   // @ts-expect-error
   return {};
 }
