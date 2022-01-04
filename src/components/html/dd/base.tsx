@@ -3,11 +3,11 @@ import styles from "./_index.module.scss";
 
 import type { BlockProps } from "#types/props";
 
-export interface HTMLDlProps extends BlockProps<"dl"> {}
+export interface HTMLDdProps extends BlockProps<"dd"> {}
 
-export const HTMLDl = blockComponent<HTMLDlProps>(
+export const HTMLDd = blockComponent<HTMLDdProps>(
   styles.block,
   ({ children, ...blockProps }) => {
-    return <dl {...blockProps}>{children}</dl>;
+    return <dd {...blockProps}>{children}</dd>;
   }
 );

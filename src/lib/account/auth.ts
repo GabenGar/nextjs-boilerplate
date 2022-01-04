@@ -28,7 +28,7 @@ export async function loginAccount(accCreds: AccCreds) {
   const account = await findAccount(accCreds);
 
   if (!account) {
-    return new AuthError("Account with these credentials doesn' exist.");
+    return new AuthError("Account with these credentials doesn't exist.");
   }
 
   return account;

@@ -2,9 +2,9 @@ import { blockComponent } from "#components/meta";
 import { HTMLDl } from "#components/html/dl";
 import styles from "./_index.module.scss";
 
-import type { HTMLDLProps } from "#components/html/dl";
+import type { HTMLDlProps } from "#components/html/dl";
 
-export interface ErrorDictProps extends HTMLDLProps {
+export interface ErrorDictProps extends HTMLDlProps {
   errors: Record<string, string[]>;
 }
 
