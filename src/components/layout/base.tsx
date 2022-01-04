@@ -5,13 +5,14 @@ import styles from "./base.module.scss";
 import type { RootlessProps } from "#types/props";
 import type { NavItem } from "#components/navigation";
 
-export interface LayoutProps extends RootlessProps { }
+export interface LayoutProps extends RootlessProps {}
 
 const globalNav: NavItem[] = [
+  { link: "/", title: "home" },
   { link: "/auth/register", title: "register" },
   { link: "/auth/login", title: "login" },
   // { link: "/auth/logout", title: "logout" }
-]
+];
 
 export function BaseLayout({ children }: LayoutProps) {
   return (

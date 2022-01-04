@@ -18,7 +18,11 @@
   gap: $size-normal;
 
   background-color: var(--colour1-secondary-transparent);
-  padding: 1em 2em;
+  padding: $size-small $size-normal;
+
+  @media (min-width: $width-tablet) {
+    padding: $size-normal $size-big;
+  }
 }
 
 .body {
@@ -29,5 +33,9 @@
 .footer {
   grid-area: footer;
   background-color: var(--colour1-secondary-transparent);
-  padding: 1em 2em;
+  padding: $size-small $size-normal;
+
+  @media (min-width: $width-tablet) {
+    padding: $size-normal $size-big;
+  }
 }
