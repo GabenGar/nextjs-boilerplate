@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { AuthError } from "#types/errors";
 import { getReqBody } from "#lib/util";
-import { loginAccount, validateAccountFields } from "#lib/account";
+import { validateAccountFields, registerAccount } from "#lib/account";
 import { Form } from "#components/forms";
 import { ErrorsView } from "#components/errors";
 import {
@@ -10,25 +10,25 @@ import {
   FormSectionText,
 } from "#components/forms/sections";
 
-import type { BasePageProps } from "#types/pages";
-import type { AccCreds } from "#types/entities";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { AccCreds } from "#types/entities";
+import type { BasePageProps } from "#types/pages";
 
-interface LoginPageProps extends BasePageProps {
+interface LogoutPageProps extends BasePageProps {
   accCreds?: AccCreds;
 }
 
-export function LoginPage({
-  errors,
+export function LogoutPage({
   accCreds,
+  errors,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
-        <title>Login</title>
-        <meta name="description" content="Login" />
+        <title>Register</title>
+        <meta name="description" content="Register" />
       </Head>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <Form method="POST">
         <FormSectionText
           id="acc-name"
@@ -42,7 +42,6 @@ export function LoginPage({
           id="acc-password"
           name="password"
           required
-          isNew={false}
           defaultValue={accCreds?.password}
         >
           Password
@@ -53,48 +52,25 @@ export function LoginPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
+export const getServerSideProps: GetServerSideProps<LogoutPageProps> = async (
   context
 ) => {
   const { req } = context;
   const session = await getSession(context);
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/",
         permanent: false,
       },
     };
   }
-
+  
   if (req.method === "POST") {
-    const accCreds = await getReqBody<AccCreds>(req);
-    const { isValid, errors } = validateAccountFields(accCreds);
-
-    if (!isValid) {
-      return {
-        props: {
-          errors: errors!.toDict(),
-          accCreds,
-        },
-      };
-    }
-
-    const result = await loginAccount(accCreds);
-
-    if (result instanceof AuthError) {
-      return {
-        props: {
-          errors: [result.message],
-          accCreds,
-        },
-      };
-    }
-
     return {
       redirect: {
-        destination: "/account",
+        destination: "/",
         permanent: false,
       },
     };
@@ -105,4 +81,4 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
   };
 };
 
-export default LoginPage;
+export default LogoutPage;

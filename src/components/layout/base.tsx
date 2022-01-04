@@ -9,9 +9,6 @@ export interface LayoutProps extends RootlessProps {}
 
 const globalNav: NavItem[] = [
   { link: "/", title: "home" },
-  { link: "/auth/register", title: "register" },
-  { link: "/auth/login", title: "login" },
-  // { link: "/auth/logout", title: "logout" }
 ];
 
 export function BaseLayout({ children }: LayoutProps) {
@@ -19,6 +16,7 @@ export function BaseLayout({ children }: LayoutProps) {
     <>
       <header className={styles.header}>
         <GlobalNav navItems={globalNav} />
+
       </header>
 
       <main className={styles.body}>{children}</main>

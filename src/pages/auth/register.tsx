@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { AuthError } from "#types/errors";
 import { getReqBody } from "#lib/util";
@@ -47,14 +48,25 @@ export function RegisterPage({
         </FormSectionPassword>
         {errors && <ErrorsView errors={errors} />}
       </Form>
-      
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<
-  RegisterPageProps
-> = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
+  context
+) => {
+  const { req } = context;
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/account",
+        permanent: false,
+      },
+    };
+  }
+
   if (req.method === "POST") {
     const accCreds = await getReqBody<AccCreds>(req);
     const { isValid, errors } = validateAccountFields(accCreds);
@@ -63,7 +75,7 @@ export const getServerSideProps: GetServerSideProps<
       return {
         props: {
           errors: errors!.toDict(),
-          accCreds
+          accCreds,
         },
       };
     }
@@ -74,7 +86,7 @@ export const getServerSideProps: GetServerSideProps<
       return {
         props: {
           errors: [result.message],
-          accCreds
+          accCreds,
         },
       };
     }
