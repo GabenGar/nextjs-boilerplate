@@ -7,5 +7,6 @@ export const DATABASE_NAME = process.env.DATABASE_NAME!;
 export const DATABASE_USER = process.env.DATABASE_USER!;
 export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD!;
 export const SECRET_KEY = process.env.SECRET_KEY!;
+export const SECRET_COOKIE_KEY = process.env.SECRET_COOKIE_KEY!;
 export const GITHUB_ID = process.env.GITHUB_ID!;
 export const GITHUB_SECRET = process.env.GITHUB_SECRET!;

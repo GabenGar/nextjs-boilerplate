@@ -1,13 +1,16 @@
-import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
-import { Account } from "#types/entities";
 
-import type { GetServerSideProps } from "next";
-import type { Session } from "next-auth";
+import type { InferGetServerSidePropsType } from "next";
+import { withSessionSSR } from "#lib/account";
+import type { Account } from "#types/entities";
 
-interface AccountPageProps {}
+interface AccountPageProps extends Record<string, unknown> {
+  account: Account;
+}
 
-function AccountPage() {
+function AccountPage({ account }: InferGetServerSidePropsType<
+  typeof getServerSideProps
+>) {
   // const { data: session, status } = useSession();
   return (
     <>
@@ -21,24 +24,25 @@ function AccountPage() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<AccountPageProps> = async (
-  context
-) => {
-  // const session = await getSession(context);
+export const getServerSideProps = withSessionSSR<AccountPageProps>(
+  async ({ req }) => {
+    const account = req.session.account;
 
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth/login",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+    if (!account) {
+      return {
+        redirect: {
+          destination: "/auth/login",
+          permanent: false,
+        },
+      };
+    }
 
-  return {
-    props: {
-    },
-  };
-};
+    return {
+      props: {
+        account,
+      },
+    };
+  }
+);
 
 export default AccountPage;

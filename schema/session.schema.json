@@ -22,6 +22,6 @@
       "type": "integer",
       "description": "An ID of account."
     }
-
+    
   }
 }
