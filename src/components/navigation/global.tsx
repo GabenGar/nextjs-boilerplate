@@ -39,7 +39,8 @@ export const GlobalNav = blockComponent<GlobalNavProps>(
 );
 
 function AccountNav() {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
+  const session = false;
   return (
     <HTMLUl className={clsx(styles.list, styles.account)}>
       {!session ? (

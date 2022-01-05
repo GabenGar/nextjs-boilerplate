@@ -1,0 +1,27 @@
+{
+  "title": "AccountSession",
+  "description": "The session of an account",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "account_id": {
+      "type": "integer",
+      "description": "An ID of account."
+    }
+
+  }
+}

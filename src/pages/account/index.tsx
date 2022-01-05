@@ -8,7 +8,7 @@ import type { Session } from "next-auth";
 interface AccountPageProps {}
 
 function AccountPage() {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   return (
     <>
       <Head>
@@ -24,20 +24,19 @@ function AccountPage() {
 export const getServerSideProps: GetServerSideProps<AccountPageProps> = async (
   context
 ) => {
-  const session = await getSession(context);
+  // const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth/login",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {
-      session,
     },
   };
 };

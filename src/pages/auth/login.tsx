@@ -57,16 +57,16 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
   context
 ) => {
   const { req } = context;
-  const session = await getSession(context);
+  // const session = await getSession(context);
 
-  if (session) {
-    return {
-      redirect: {
-        destination: "/account",
-        permanent: false,
-      },
-    };
-  }
+  // if (session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/account",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   if (req.method === "POST") {
     const accCreds = await getReqBody<AccCreds>(req);

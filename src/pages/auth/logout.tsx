@@ -56,16 +56,16 @@ export const getServerSideProps: GetServerSideProps<LogoutPageProps> = async (
   context
 ) => {
   const { req } = context;
-  const session = await getSession(context);
+  // const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
   
   if (req.method === "POST") {
     return {
