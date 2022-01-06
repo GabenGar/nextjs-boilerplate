@@ -1,5 +1,5 @@
 import {
-  createAccount,
+  addAccount,
   findAccountByName,
   findAccount,
 } from "#database/queries/account";
@@ -20,7 +20,7 @@ export async function registerAccount(accCreds: AccCreds) {
     return new AuthError("Account with this name already exists.");
   }
 
-  const account = await createAccount(accCreds.name, accCreds.password);
+  const account = await addAccount(accCreds.name, accCreds.password);
   return account;
 }
 

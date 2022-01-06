@@ -2,7 +2,7 @@ import { getDB } from "#database";
 
 import type { Account, AccCreds } from "#types/entities";
 
-export async function createAccount(name: string, password: string) {
+export async function addAccount(name: string, password: string) {
   const { db } = await getDB();
   const query = `
     INSERT INTO accounts (name, password)

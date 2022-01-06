@@ -40,8 +40,9 @@ export const GlobalNav = blockComponent<GlobalNavProps>(
 
 function AccountNav() {
   const { account } = useAccount();
+  
   return (
-    <HTMLUl className={clsx(styles.list, styles.account)}>
+    <HTMLUl className={styles.list}>
       {!account ? (
         <>
           <HTMLLi>

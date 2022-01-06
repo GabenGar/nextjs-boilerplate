@@ -23,7 +23,8 @@ export async function loginAccount(accCreds: AccCreds) {
       method: "POST",
       body: JSON.stringify({ data: accCreds }),
     });
-    const result: APIResponse<{ account: AccountClient }> = await response.json();
+    const result: APIResponse<{ account: AccountClient }> =
+      await response.json();
     return result;
   } catch (error) {
     console.error(error);
@@ -31,13 +32,21 @@ export async function loginAccount(accCreds: AccCreds) {
   }
 }
 
-export async function getAccount(): Promise<APIResponse<AccountClient>> {
+export async function getAccount(
+  key: string = "/account"
+): Promise<APIResponse<AccountClient> | undefined> {
   try {
-    const response = await apiV1Fetch("/account", {
+    const response = await apiV1Fetch(key, {
       method: "POST",
     });
+
+    if (response.status === 401) {
+      return undefined
+    }
+
     const result = await response.json();
     return result;
+    
   } catch (error) {
     console.error(error);
     return { success: false };
