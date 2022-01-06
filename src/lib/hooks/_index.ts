@@ -1,1 +1,1 @@
-export {}
+export { useAccount } from "./use-account"

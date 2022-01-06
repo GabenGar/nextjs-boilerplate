@@ -1,17 +1,17 @@
 import Head from "next/head";
+import { getAccountDetails, withSessionSSR } from "#lib/account";
 
 import type { InferGetServerSidePropsType } from "next";
-import { withSessionSSR } from "#lib/account";
-import type { Account } from "#types/entities";
+import type { AccountClient } from "#types/entities";
+import type { BasePageProps } from "#types/pages";
 
-interface AccountPageProps extends Record<string, unknown> {
-  account: Account;
+interface AccountPageProps extends BasePageProps {
+  account: AccountClient;
 }
 
-function AccountPage({ account }: InferGetServerSidePropsType<
-  typeof getServerSideProps
->) {
-  // const { data: session, status } = useSession();
+function AccountPage({
+  account,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -19,16 +19,16 @@ function AccountPage({ account }: InferGetServerSidePropsType<
         <meta name="description" content="Account page" />
       </Head>
       <h1>Account page</h1>
-      {/* name: {account.name} */}
+      <pre>{JSON.stringify(account, undefined, 2)}</pre>
     </>
   );
 }
 
 export const getServerSideProps = withSessionSSR<AccountPageProps>(
   async ({ req }) => {
-    const account = req.session.account;
+    const { account_id } = req.session;
 
-    if (!account) {
+    if (!account_id) {
       return {
         redirect: {
           destination: "/auth/login",
@@ -37,9 +37,18 @@ export const getServerSideProps = withSessionSSR<AccountPageProps>(
       };
     }
 
+    const account = await getAccountDetails(account_id);
+
+    if (!account) {
+      req.session.destroy();
+      return {
+        notFound: true,
+      };
+    }
+    const {id, password, ...accountClient} = account;
     return {
       props: {
-        account,
+        account: accountClient
       },
     };
   }

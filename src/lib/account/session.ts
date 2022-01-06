@@ -12,12 +12,11 @@ export const sessionOptions: IronSessionOptions = {
   password: SECRET_COOKIE_KEY,
   cookieName: `${SITE_NAME}_cookie_cutter`,
   cookieOptions: {
-    // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
     secure: !IS_DEVELOPMENT,
   },
 };
 
-export function withSessionRoute(handler: NextApiHandler) {
+export function withSessionRoute<R>(handler: NextApiHandler<R>) {
   return withIronSessionApiRoute(handler, sessionOptions);
 }
 

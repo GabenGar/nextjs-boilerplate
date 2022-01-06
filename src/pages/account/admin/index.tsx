@@ -1,10 +1,8 @@
-import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import { getAccountList } from "#lib/account/admin";
 
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import type { Session } from "next-auth";
 import type { Account } from "#types/entities";
 
 interface AdminPageProps {
@@ -38,17 +36,6 @@ export const getServerSideProps: GetServerSideProps<AdminPageProps> = async (
   }
 
   const accounts = await getAccountList({ currentPage: 1, limit: 50 })
-
-  // const session = await getSession(context);
-
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth/login",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
 
   return {
     props: {

@@ -1,8 +1,11 @@
-import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { AuthError } from "#types/errors";
 import { getReqBody } from "#lib/util";
-import { validateAccountFields, registerAccount } from "#lib/account";
+import {
+  validateAccountFields,
+  registerAccount,
+  withSessionSSR,
+} from "#lib/account";
 import { Form } from "#components/forms";
 import { ErrorsView } from "#components/errors";
 import {
@@ -10,7 +13,7 @@ import {
   FormSectionText,
 } from "#components/forms/sections";
 
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { InferGetServerSidePropsType } from "next";
 import type { AccCreds } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
 
@@ -52,55 +55,58 @@ export function RegisterPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
-  context
-) => {
-  const { req } = context;
-  // const session = await getSession(context);
+export const getServerSideProps = withSessionSSR<RegisterPageProps>(
+  async ({ req }) => {
+    const { account_id } = req.session;
 
-  // if (session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/account",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-
-  if (req.method === "POST") {
-    const accCreds = await getReqBody<AccCreds>(req);
-    const { isValid, errors } = validateAccountFields(accCreds);
-
-    if (!isValid) {
+    if (account_id) {
       return {
-        props: {
-          errors: errors!.toDict(),
-          accCreds,
+        redirect: {
+          destination: "/account",
+          permanent: false,
         },
       };
     }
 
-    const result = await registerAccount(accCreds);
+    if (req.method === "POST") {
+      const accCreds = await getReqBody<AccCreds>(req);
+      const { isValid, errors } = validateAccountFields(accCreds);
 
-    if (result instanceof AuthError) {
+      if (!isValid) {
+        return {
+          props: {
+            errors: errors!.toDict(),
+            accCreds,
+          },
+        };
+      }
+
+      const newAcc = await registerAccount(accCreds);
+
+      if (newAcc instanceof AuthError) {
+        return {
+          props: {
+            errors: [newAcc.message],
+            accCreds,
+          },
+        };
+      }
+
+      req.session.account_id = newAcc.id;
+      await req.session.save();
+
       return {
-        props: {
-          errors: [result.message],
-          accCreds,
+        redirect: {
+          destination: "/account",
+          permanent: false,
         },
       };
     }
+
     return {
-      redirect: {
-        destination: "/account",
-        permanent: false,
-      },
+      props: {},
     };
   }
-
-  return {
-    props: {},
-  };
-};
+);
 
 export default RegisterPage;

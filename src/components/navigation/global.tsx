@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { useAccount } from "#lib/hooks";
 import { blockComponent } from "#components/meta";
 import { HTMLNav } from "#components/html/nav";
 import { HTMLUl } from "#components/html/ul";
@@ -39,11 +39,10 @@ export const GlobalNav = blockComponent<GlobalNavProps>(
 );
 
 function AccountNav() {
-  // const { data: session, status } = useSession();
-  const session = false;
+  const { account } = useAccount();
   return (
     <HTMLUl className={clsx(styles.list, styles.account)}>
-      {!session ? (
+      {!account ? (
         <>
           <HTMLLi>
             <LinkInternal className={styles.link} href="/auth/login">

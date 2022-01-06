@@ -1,7 +1,7 @@
 import { getDB } from "#database";
 
 import type { Account } from "#types/entities";
-import { PaginationDB } from "#types/pagination";
+import type { PaginationDB } from "#types/pagination";
 
 export async function getAccounts({ offset, limit }: PaginationDB) {
   const { db } = await getDB();

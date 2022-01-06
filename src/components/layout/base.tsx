@@ -7,16 +7,13 @@ import type { NavItem } from "#components/navigation";
 
 export interface LayoutProps extends RootlessProps {}
 
-const globalNav: NavItem[] = [
-  { link: "/", title: "home" },
-];
+const globalNav: NavItem[] = [{ link: "/", title: "home" }];
 
 export function BaseLayout({ children }: LayoutProps) {
   return (
     <>
       <header className={styles.header}>
         <GlobalNav navItems={globalNav} />
-
       </header>
 
       <main className={styles.body}>{children}</main>
