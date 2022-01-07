@@ -27,7 +27,16 @@
 
 .body {
   grid-area: body;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: baseline;
+  gap: $size-normal;
   background-color: var(--colour1-tertiary);
+  padding: 0 $size-normal;
+
+  @media (min-width: $width-tablet) {
+    padding: 0 $size-big;
+  }
 }
 
 .footer {

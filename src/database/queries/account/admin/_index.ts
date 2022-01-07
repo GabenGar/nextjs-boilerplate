@@ -1,12 +1,12 @@
 import { getDB } from "#database";
 
 import type { Account } from "#types/entities";
-import type { PaginationDB } from "#types/pagination";
+import type { PaginationDB } from "#lib/pagination";
 
 export async function getAccounts({ offset, limit }: PaginationDB) {
   const { db } = await getDB();
   const query = `
-    SELECT (id, created_at, updated_at, name, password, email, role)
+    SELECT *
     FROM accounts
     ORDER BY
       created_at DESC

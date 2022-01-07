@@ -2,7 +2,6 @@
 import "#styles/globals.scss";
 
 import { BaseLayout } from "#components/layout";
-import { SessionProvider } from "next-auth/react";
 
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
@@ -23,11 +22,7 @@ function MyApp({
   const getLayout =
     Component.getLayout ?? ((page) => <BaseLayout>{page}</BaseLayout>);
 
-  return (
-    // <SessionProvider session={session}>
-      getLayout(<Component {...pageProps} />)
-    // { </SessionProvider> }
-  );
+  return getLayout(<Component {...pageProps} />);
 }
 
 export default MyApp;
