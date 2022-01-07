@@ -41,14 +41,13 @@ export async function getAccount(
     });
 
     if (response.status === 401) {
-      throw Error("Not authorized.")
+      throw Error("Not authorized.");
     }
 
     const result = await response.json();
     return result;
-    
   } catch (error) {
     console.error(error);
-    return { success: false };
+    throw error;
   }
 }
