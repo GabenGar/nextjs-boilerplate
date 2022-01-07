@@ -13,14 +13,6 @@ export async function addAccount(name: string, password: string) {
   return account;
 }
 
-export async function clearAccounts() {
-  const { db } = await getDB();
-  const query = "TRUNCATE TABLE accounts CASCADE";
-
-  await db.none(query);
-  return true;
-}
-
 export async function findAccount({ name, password }: AccCreds) {
   const { db } = await getDB();
   const query = `

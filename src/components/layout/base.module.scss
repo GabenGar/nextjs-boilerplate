@@ -32,10 +32,13 @@
   align-content: baseline;
   gap: $size-normal;
   background-color: var(--colour1-tertiary);
-  padding: 0 $size-normal;
 
-  @media (min-width: $width-tablet) {
-    padding: 0 $size-big;
+  & > * {
+    padding: 0 $size-normal;
+
+    @media (min-width: $width-tablet) {
+      padding: 0 $size-big;
+    }
   }
 }
 
