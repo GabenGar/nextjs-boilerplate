@@ -6,4 +6,4 @@ export const DATABASE_PORT = process.env.DATABASE_PORT!;
 export const DATABASE_NAME = process.env.DATABASE_NAME!;
 export const DATABASE_USER = process.env.DATABASE_USER!;
 export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD!;
-export const SECRET_COOKIE_KEY = process.env.SECRET_COOKIE_KEY!;
+export const SECRET_KEY = process.env.SECRET_KEY!;

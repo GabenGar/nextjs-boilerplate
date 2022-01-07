@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
-import { SITE_NAME, SECRET_COOKIE_KEY } from "#environment/env-vars";
+import { SITE_NAME, SECRET_KEY } from "#environment/env-vars";
 import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import type { IronSessionOptions } from "iron-session";
 import type {
@@ -9,7 +9,7 @@ import type {
 } from "next";
 
 export const sessionOptions: IronSessionOptions = {
-  password: SECRET_COOKIE_KEY,
+  password: SECRET_KEY,
   cookieName: `${SITE_NAME}_cookie_cutter`,
   cookieOptions: {
     secure: !IS_DEVELOPMENT,
