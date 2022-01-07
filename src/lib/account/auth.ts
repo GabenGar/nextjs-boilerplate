@@ -8,24 +8,36 @@ import { accountSchema } from "#types/schemas";
 import { AuthError } from "#types/errors";
 
 import { AccCreds, Account } from "#types/entities";
+import { AESencryption } from "#lib/encryption";
 
 export const validateAccountFields = createSchemaValidation<Account | AccCreds>(
   accountSchema
 );
 
 export async function registerAccount(accCreds: AccCreds) {
-  const existingAccount = await findAccountByName(accCreds);
+  const encryptedAccCreds: AccCreds = {
+    ...accCreds,
+    password: AESencryption.encryptString(accCreds.password),
+  };
+  const existingAccount = await findAccountByName(encryptedAccCreds);
 
   if (existingAccount) {
     return new AuthError("Account with this name already exists.");
   }
 
-  const account = await addAccount(accCreds.name, accCreds.password);
+  const account = await addAccount(
+    encryptedAccCreds.name,
+    encryptedAccCreds.password
+  );
   return account;
 }
 
 export async function loginAccount(accCreds: AccCreds) {
-  const account = await findAccount(accCreds);
+  const encryptedAccCreds: AccCreds = {
+    ...accCreds,
+    password: AESencryption.encryptString(accCreds.password),
+  };
+  const account = await findAccount(encryptedAccCreds);
 
   if (!account) {
     return new AuthError("Account with these credentials doesn't exist.");
