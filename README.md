@@ -6,4 +6,9 @@ npx create-next-app --example https://github.com/GabenGar/nextjs-boilerplate
 ```
 
 ## TODOs
-- database table initialization
+
+## Secret Keys
+To generate various random keys use `openssl`
+```sh
+openssl rand -base64 32
+``` 

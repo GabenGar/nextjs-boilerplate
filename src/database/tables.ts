@@ -7,7 +7,7 @@ export async function setupTables(db: IDatabase<any>) {
   console.log("Postgresql version: ", version);
 
   console.log("Setting up tables.");
-  const accountsQuery = `
+  const tablesQuery = `
     CREATE TABLE IF NOT EXISTS accounts (
       "id" SERIAL PRIMARY KEY,
       "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -20,6 +20,6 @@ export async function setupTables(db: IDatabase<any>) {
     )
   `;
 
-  await db.none(accountsQuery);
+  await db.none(tablesQuery);
   console.log("Finished setting tables up.");
 }

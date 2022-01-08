@@ -1,16 +1,52 @@
-import { createAccount } from "#database/queries/account";
+import {
+  addAccount,
+  findAccountByName,
+  findAccount,
+} from "#database/queries/account";
+import { createSchemaValidation } from "#lib/json-schema/validation";
 import { accountSchema } from "#types/schemas";
-import { validateAgainstSchema } from "#lib/json-schema/validation";
+import { AuthError } from "#types/errors";
 
-import type { AccCreds } from "#types/entities";
+import { AccCreds, Account } from "#types/entities";
+import { sha3Encryption } from "#lib/encryption";
+
+const { encryptString } = sha3Encryption;
+
+export const validateAccountFields = createSchemaValidation<Account | AccCreds>(
+  accountSchema
+);
 
 export async function registerAccount(accCreds: AccCreds) {
-  const { isValid, errors } = validateAgainstSchema(accCreds, accountSchema);
+  const encryptedAccCreds: AccCreds = {
+    ...accCreds,
+    password: encryptString(accCreds.password),
+  };
 
-  if (!isValid) {
-    return errors;
+  const existingAccount = await findAccountByName(encryptedAccCreds);
+
+  if (existingAccount) {
+    return new AuthError("Account with this name already exists.");
   }
 
-  const account = await createAccount(accCreds.name, accCreds.password);
+  const account = await addAccount(
+    encryptedAccCreds.name,
+    encryptedAccCreds.password
+  );
+
+  return account;
+}
+
+export async function loginAccount(accCreds: AccCreds) {
+  const encryptedAccCreds: AccCreds = {
+    ...accCreds,
+    password: encryptString(accCreds.password),
+  };
+
+  const account = await findAccount(encryptedAccCreds);
+
+  if (!account) {
+    return new AuthError("Account with these credentials doesn't exist.");
+  }
+
   return account;
 }

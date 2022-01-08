@@ -1,54 +1,112 @@
 import Head from "next/head";
-import { HTMLButton } from "#components/html/button";
-import { HTMLForm } from "#components/html/form";
-import { HTMLLabel } from "#components/html/label";
-import { InputText, InputPassword } from "#components/inputs";
+import { AuthError } from "#types/errors";
+import { getReqBody } from "#lib/util";
+import {
+  validateAccountFields,
+  registerAccount,
+  withSessionSSR,
+} from "#lib/account";
+import { Form } from "#components/forms";
+import { ErrorsView } from "#components/errors";
+import {
+  FormSectionPassword,
+  FormSectionText,
+} from "#components/forms/sections";
 
-import type { SubmitArgs } from "#components/html/form";
-import { registerAccount } from "#lib/api/site";
+import type { InferGetServerSidePropsType } from "next";
+import type { AccCreds } from "#types/entities";
+import type { BasePageProps } from "#types/pages";
 
-interface FormFields extends HTMLFormControlsCollection {
-  name: HTMLInputElement
-  password: HTMLInputElement
+interface RegisterPageProps extends BasePageProps {
+  accCreds?: AccCreds;
 }
 
-export function RegisterPage() {
-  async function handleSubmit(event: SubmitArgs) {
-    const form = event.target as HTMLFormElement;
-    const fields = form.elements as FormFields;
-    const name = fields["name"].value
-    const password = fields["password"].value
+export function RegisterPage({
+  accCreds,
+  errors,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  return (
+    <>
+      <Head>
+        <title>Register</title>
+        <meta name="description" content="Register" />
+      </Head>
+      <h1>Register</h1>
+      <Form method="POST">
+        <FormSectionText
+          id="acc-name"
+          name="name"
+          required
+          defaultValue={accCreds?.name}
+        >
+          Name
+        </FormSectionText>
+        <FormSectionPassword
+          id="acc-password"
+          name="password"
+          required
+          defaultValue={accCreds?.password}
+        >
+          Password
+        </FormSectionPassword>
+        {errors && <ErrorsView errors={errors} />}
+      </Form>
+    </>
+  );
+}
 
-    const { success, errors } = await registerAccount({
-      name,
-      password
-    });
+export const getServerSideProps = withSessionSSR<RegisterPageProps>(
+  async ({ req }) => {
+    const { account_id } = req.session;
 
-    if (!success && errors) {
-      console.error(errors);
+    if (account_id) {
+      return {
+        redirect: {
+          destination: "/account",
+          permanent: false,
+        },
+      };
     }
-  }
 
-  return (<>
-    <Head>
-      <title>Register</title>
-      <meta name="description" content="Register" />
-    </Head>
-    <h1>Register</h1>
-    <HTMLForm action="/api/v1/auth/register" method="POST" onSubmit={handleSubmit}>
-      <div>
-        <HTMLLabel htmlFor="acc-name">Name</HTMLLabel>
-        <InputText id="acc-name" name="name" />
-      </div>
-      <div>
-        <HTMLLabel htmlFor="acc-password">Password</HTMLLabel>
-        <InputPassword id="acc-password" name="password" />
-      </div>
-      <div>
-        <HTMLButton type="submit">Submit</HTMLButton>
-      </div>
-    </HTMLForm>
-  </>);
-}
+    if (req.method === "POST") {
+      const accCreds = await getReqBody<AccCreds>(req);
+      const { isValid, errors } = validateAccountFields(accCreds);
+
+      if (!isValid) {
+        return {
+          props: {
+            errors: errors!.toDict(),
+            accCreds,
+          },
+        };
+      }
+
+      const newAcc = await registerAccount(accCreds);
+
+      if (newAcc instanceof AuthError) {
+        return {
+          props: {
+            errors: [newAcc.message],
+            accCreds,
+          },
+        };
+      }
+
+      req.session.account_id = newAcc.id;
+      await req.session.save();
+
+      return {
+        redirect: {
+          destination: "/account",
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  }
+);
 
 export default RegisterPage;

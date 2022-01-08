@@ -6,11 +6,17 @@
   "json.schemas": [
     {
       "fileMatch": ["schema/*schema.json"],
-      "url": "./schema/base.schema.json"
+      "url": "./schema/meta.schema.json"
     },
     {
       "fileMatch": ["config.json"],
       "url": "./schema/config.schema.json"
     }
-  ]
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
 }

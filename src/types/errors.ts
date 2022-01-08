@@ -3,3 +3,5 @@ export class NotImplementedError extends Error {
     super(message);
   }
 }
+
+export class AuthError extends Error {}

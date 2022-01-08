@@ -1,1 +1,1 @@
-export { registerAccount } from "./account"
+export { registerAccount, loginAccount, getAccount } from "./account";

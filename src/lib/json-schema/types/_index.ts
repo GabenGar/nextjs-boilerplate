@@ -13,9 +13,10 @@ export type JSONTypes =
 
 export type JSONKeyTypes = "string" | "number";
 
-export interface ValidationResult {
+export interface ValidationResult<T = undefined> {
   isValid: boolean;
   errors?: ValidationErrors;
+  modifiedResult?: T;
 }
 
 export interface SchemaValidationFunction {

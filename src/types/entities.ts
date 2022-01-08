@@ -8,7 +8,10 @@ export interface Account {
   role?: string;
 }
 
+export interface AccountClient extends Omit<Account, "id" | "password"> {}
+
 export interface AccCreds {
   name: string
   password: string
+  email?: string
 }

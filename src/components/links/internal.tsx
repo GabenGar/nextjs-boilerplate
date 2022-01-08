@@ -7,10 +7,18 @@ import type { LinkProps } from "next/link";
 import type { HTMLAProps } from "#components/html/a";
 
 export interface LinkInternalProps extends PropsWithChildren<LinkProps> {
-  className?: string
+  className?: string;
 }
 
-export function LinkInternal({ className, children, ...linkProps }: LinkInternalProps) {
+export function LinkInternal({
+  className,
+  children,
+  ...linkProps
+}: LinkInternalProps) {
   const anchorClass = clsx(className);
-  return (<Link {...linkProps} passHref ><a className={anchorClass}>{children}</a></Link>)
+  return (
+    <Link {...linkProps} passHref>
+      <a className={anchorClass}>{children}</a>
+    </Link>
+  );
 }

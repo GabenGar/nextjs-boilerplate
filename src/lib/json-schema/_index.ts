@@ -1,1 +1,1 @@
-export { validateAgainstSchema } from "./validation/_index";
+export { createSchemaValidation } from "./validation/_index";

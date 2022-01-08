@@ -5,11 +5,9 @@ import styles from "./base.module.scss";
 import type { RootlessProps } from "#types/props";
 import type { NavItem } from "#components/navigation";
 
-export interface LayoutProps extends RootlessProps { }
+export interface LayoutProps extends RootlessProps {}
 
-const globalNav: NavItem[] = [
-  { link: "/auth/register", title: "register" }
-]
+const globalNav: NavItem[] = [{ link: "/", title: "home" }];
 
 export function BaseLayout({ children }: LayoutProps) {
   return (
