@@ -1,2 +1,2 @@
-export { HTMLH1 } from "./base";
-export type { HTMLH1Props } from "./base";
+export { HTMLH6 } from "./base";
+export type { HTMLH6Props } from "./base";

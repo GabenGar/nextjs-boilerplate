@@ -3,11 +3,11 @@ import styles from "./_index.module.scss";
 
 import type { BlockProps } from "#types/props";
 
-export interface HTMLH5Props extends BlockProps<"h5"> {}
+export interface HTMLArticleProps extends BlockProps<"article"> {}
 
-export const HTMLH5 = blockComponent<HTMLH5Props>(
+export const HTMLArticle = blockComponent<HTMLArticleProps>(
   styles.block,
   ({ children, ...blockProps }) => {
-    return <h5 {...blockProps}>{children}</h5>;
+    return <article {...blockProps}>{children}</article>;
   }
 );
