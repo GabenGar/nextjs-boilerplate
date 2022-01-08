@@ -1,5 +1,7 @@
 import Head from "next/head";
+import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
+import { LinkInternal } from "#components/links";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
@@ -19,6 +21,9 @@ function AccountPage({
         <meta name="description" content="Account page" />
       </Head>
       <h1>Account page</h1>
+      {IS_DEVELOPMENT && (
+        <LinkInternal href="/account/admin">Admin</LinkInternal>
+      )}
       <pre>{JSON.stringify(account, undefined, 2)}</pre>
     </>
   );
@@ -45,10 +50,10 @@ export const getServerSideProps = withSessionSSR<AccountPageProps>(
         notFound: true,
       };
     }
-    const {id, password, ...accountClient} = account;
+    const { id, password, ...accountClient } = account;
     return {
       props: {
-        account: accountClient
+        account: accountClient,
       },
     };
   }
