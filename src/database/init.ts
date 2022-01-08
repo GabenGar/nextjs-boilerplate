@@ -27,7 +27,8 @@ const connParams: IConnectionParameters<IClient> = {
   database: DATABASE_NAME,
   port: Number(DATABASE_PORT),
   host: DATABASE_HOSTNAME,
-  ssl: !IS_DEVELOPMENT,
+  // https://help.heroku.com/MDM23G46/why-am-i-getting-an-error-when-i-upgrade-to-pg-8
+  ssl: !IS_DEVELOPMENT && { rejectUnauthorized: false },
 };
 const pgp = pgLib(initOptions);
 // return date strings as strings
