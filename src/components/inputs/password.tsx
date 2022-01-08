@@ -5,16 +5,18 @@ import styles from "./_index.module.scss";
 import type { HTMLInputProps } from "#components/html/input";
 
 export interface InputPasswordProps extends HTMLInputProps {
-  isNew?: boolean
+  isNew?: boolean;
 }
 
 export const InputPassword = blockComponent<InputPasswordProps>(
   styles.password,
-  ({ isNew = true, autoComplete, type, ...blockProps }) => {
-    return (<HTMLInput
-      type="password"
-      autoComplete={isNew ? "new-password" : "current-password"}
-      {...blockProps}
-    />);
+  ({ isNew = true, autoComplete, type = "password", ...blockProps }) => {
+    return (
+      <HTMLInput
+        type={type}
+        autoComplete={isNew ? "new-password" : "current-password"}
+        {...blockProps}
+      />
+    );
   }
-)
+);

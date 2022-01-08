@@ -1,29 +1,27 @@
 import CryptoJS from "crypto-js";
 import { SECRET_KEY } from "#environment/env-vars";
 
-type EncriptionTypes = "aes";
-
 export interface Encryption {
   encryptString(str: string): string;
-  decryptString(str: string): string;
+  // decryptString?(str: string): string;
 }
 
-const encryptionTypes: Record<EncriptionTypes, Encryption> = {
-  aes: {
-    encryptString(str: string) {
-      return CryptoJS.AES.encrypt(str, SECRET_KEY).toString();
-    },
+function encryptSHA3String(str: string) {
+  const jsonString = SECRET_KEY + str;
+  const encryptedStr = CryptoJS.SHA3(JSON.stringify(jsonString)).toString();
+  return encryptedStr;
+}
 
-    decryptString(str: string) {
-      return CryptoJS.AES.decrypt(str, SECRET_KEY).toString();
-    },
+const encryptionTypes: Record<"sha3", Encryption> = {
+  sha3: {
+    encryptString: encryptSHA3String,
   },
 };
 
 function createEncryption(
-  type: keyof typeof encryptionTypes = "aes"
+  type: keyof typeof encryptionTypes = "sha3"
 ): Encryption {
   return encryptionTypes[type];
 }
 
-export const AESencryption = createEncryption("aes");
+export const sha3Encryption = createEncryption("sha3");
