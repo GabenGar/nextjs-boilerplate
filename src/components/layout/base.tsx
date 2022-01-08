@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from "#environment/constants";
+import { HTMLMain } from "#components/html/main";
 import { GlobalNav } from "#components/navigation";
 import styles from "./base.module.scss";
 
@@ -16,7 +17,7 @@ export function BaseLayout({ children }: LayoutProps) {
         <GlobalNav navItems={globalNav} />
       </header>
 
-      <main className={styles.body}>{children}</main>
+      <HTMLMain className={styles.body}>{children}</HTMLMain>
 
       <footer className={styles.footer}>{ERROR_MESSAGE}</footer>
     </>
