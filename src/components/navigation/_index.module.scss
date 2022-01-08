@@ -1,25 +1,16 @@
 @use "../../styles/variables/sass" as *;
 
 .block {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: $size-normal;
-  width: 100%;
+  background-color: var(--colour1-secondary);
+  border-radius: $radius-normal;
+  padding: $size-small $size-normal;
 }
 
 .list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: $size-normal;
 }
 
 .item {
 }
 
 .link {
-  text-transform: capitalize;
 }

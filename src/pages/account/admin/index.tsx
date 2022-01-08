@@ -13,7 +13,6 @@ interface AdminPageProps {
 function AdminPage({
   accounts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const { data: session, status } = useSession();
   return (
     <>
       <Head>

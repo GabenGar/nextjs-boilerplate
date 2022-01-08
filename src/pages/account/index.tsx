@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
-import { HTMLNav } from "#components/html/nav";
 import { LinkInternal } from "#components/links";
 import { Page } from "#components/pages";
 import { AccountCard } from "#components/cards";
+import { Nav } from "#components/navigation";
 import styles from "./index.module.scss"
 
 import type { InferGetServerSidePropsType } from "next";
@@ -25,9 +25,9 @@ function AccountPage({
         <meta name="description" content="Account page" />
       </Head>
       {IS_DEVELOPMENT && (
-        <HTMLNav>
+        <Nav>
           <LinkInternal href="/account/admin">Admin</LinkInternal>
-        </HTMLNav>
+        </Nav>
       )}
       <AccountCard className={styles.account} account={account} />
     </Page>

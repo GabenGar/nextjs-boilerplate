@@ -4,7 +4,7 @@ import { HTMLNav } from "#components/html/nav";
 import { HTMLUl } from "#components/html/ul";
 import { HTMLLi } from "#components/html/li";
 import { LinkInternal } from "#components/links";
-import styles from "./_index.module.scss";
+import styles from "./global.module.scss";
 
 import type { HTMLNavProps } from "#components/html/nav";
 import clsx from "clsx";
