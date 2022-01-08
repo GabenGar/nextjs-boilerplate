@@ -1,7 +1,11 @@
 import Head from "next/head";
 import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
+import { HTMLNav } from "#components/html/nav";
 import { LinkInternal } from "#components/links";
+import { Page } from "#components/pages";
+import { AccountCard } from "#components/cards";
+import styles from "./index.module.scss"
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
@@ -15,17 +19,18 @@ function AccountPage({
   account,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <>
+    <Page heading="Account page">
       <Head>
         <title>Account page</title>
         <meta name="description" content="Account page" />
       </Head>
-      <h1>Account page</h1>
       {IS_DEVELOPMENT && (
-        <LinkInternal href="/account/admin">Admin</LinkInternal>
+        <HTMLNav>
+          <LinkInternal href="/account/admin">Admin</LinkInternal>
+        </HTMLNav>
       )}
-      <pre>{JSON.stringify(account, undefined, 2)}</pre>
-    </>
+      <AccountCard className={styles.account} account={account} />
+    </Page>
   );
 }
 

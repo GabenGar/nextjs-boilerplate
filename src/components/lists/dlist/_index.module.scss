@@ -1,7 +1,24 @@
-.block {}
+@use "../../../styles/variables/sass" as *;
 
-.section {}
+.block {
+}
 
-.term {}
+.section {
+}
 
-.details {}
+.term {
+  display: inline-block;
+  font-weight: bold;
+
+  &::after {
+    content: ":";
+  }
+
+  &:last-of-type {
+    margin-right: $size-small;
+  }
+}
+
+.details {
+  display: inline-block;
+}

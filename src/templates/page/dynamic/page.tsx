@@ -1,17 +1,17 @@
 import Head from "next/head";
-
-import type{ GetServerSideProps } from "next";
+import { Page } from "#components/pages";
 
 interface ITemplatePageProps {}
 
 function TemplatePage() {
-  return (<>
-    <Head>
-      <title>Template title</title>
-      <meta name="description" content="Template description" />
-    </Head>
-    <h1>Template heading</h1>
-  </>);
+  return (
+    <Page heading="Template heading">
+      <Head>
+        <title>Template title</title>
+        <meta name="description" content="Template description" />
+      </Head>
+    </Page>
+  );
 }
 
 // export const getServerSideProps:GetServerSideProps = async (context) => {
