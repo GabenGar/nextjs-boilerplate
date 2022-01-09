@@ -40,7 +40,7 @@ export const GlobalNav = blockComponent<GlobalNavProps>(
 
 function AccountNav() {
   const { account } = useAccount();
-  
+
   return (
     <HTMLUl className={styles.list}>
       {!account ? (
@@ -57,11 +57,18 @@ function AccountNav() {
           </HTMLLi>
         </>
       ) : (
-        <HTMLLi>
-          <LinkInternal className={styles.link} href="/auth/logout">
-            logout
-          </LinkInternal>
-        </HTMLLi>
+        <>
+          <HTMLLi>
+            <LinkInternal className={styles.link} href="/auth/logout">
+              logout
+            </LinkInternal>
+          </HTMLLi>
+          <HTMLLi>
+            <LinkInternal className={styles.link} href="/account">
+              account
+            </LinkInternal>
+          </HTMLLi>
+        </>
       )}
     </HTMLUl>
   );
