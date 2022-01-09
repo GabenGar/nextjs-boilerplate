@@ -8,7 +8,8 @@ export interface DListDetailsProps extends HTMLDdProps {}
 
 export const DListDetails = blockComponent<DListDetailsProps>(
   styles.details,
+
   ({ children, ...blockProps }) => {
-    return <HTMLDd {...blockProps}>{children}</HTMLDd>;
+    return <HTMLDd {...blockProps}>{children ? children : "unknown"}</HTMLDd>;
   }
 );

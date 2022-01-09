@@ -16,6 +16,7 @@ import {
 import type { InferGetServerSidePropsType } from "next";
 import type { AccCreds } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
+import { Page } from "#components/pages";
 
 interface RegisterPageProps extends BasePageProps {
   accCreds?: AccCreds;
@@ -26,12 +27,11 @@ export function RegisterPage({
   errors,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <>
+    <Page heading="Registration">
       <Head>
-        <title>Register</title>
-        <meta name="description" content="Register" />
+        <title>Registration</title>
+        <meta name="description" content="Register account" />
       </Head>
-      <h1>Register</h1>
       <Form method="POST">
         <FormSectionText
           id="acc-name"
@@ -51,7 +51,7 @@ export function RegisterPage({
         </FormSectionPassword>
         {errors && <ErrorsView errors={errors} />}
       </Form>
-    </>
+    </Page>
   );
 }
 

@@ -6,6 +6,7 @@ import {
   validateAccountFields,
   withSessionSSR,
 } from "#lib/account";
+import { Page } from "#components/pages";
 import { Form } from "#components/forms";
 import { ErrorsView } from "#components/errors";
 import {
@@ -26,12 +27,11 @@ export function LoginPage({
   accCreds,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <>
+    <Page heading="Login">
       <Head>
         <title>Login</title>
-        <meta name="description" content="Login" />
+        <meta name="description" content="Log in to your account." />
       </Head>
-      <h1>Login</h1>
       <Form method="POST">
         <FormSectionText
           id="acc-name"
@@ -52,7 +52,7 @@ export function LoginPage({
         </FormSectionPassword>
         {errors && <ErrorsView errors={errors} />}
       </Form>
-    </>
+    </Page>
   );
 }
 

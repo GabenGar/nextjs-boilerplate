@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { withSessionSSR } from "#lib/account";
+import { Page } from "#components/pages";
 import { Form } from "#components/forms";
 
 import type { InferGetServerSidePropsType } from "next";
@@ -11,14 +12,13 @@ export function LogoutPage({}: InferGetServerSidePropsType<
   typeof getServerSideProps
 >) {
   return (
-    <>
+    <Page heading="Logout">
       <Head>
         <title>Logout</title>
         <meta name="description" content="Logout" />
       </Head>
-      <h1>Logout</h1>
-      <Form method="POST" submitButton="Logout"></Form>
-    </>
+      <Form method="POST" submitButton="Logout"/>
+    </Page>
   );
 }
 

@@ -1,0 +1,31 @@
+@use "../../styles/variables/sass" as *;
+
+.block {
+  display: grid;
+  grid-template:
+    "header" auto
+    "body" 1fr
+    "footer" auto / 100%;
+  background-color: var(--colour1-primary);
+  border-radius: $radius-normal;
+
+
+  & > * {
+    padding: $size-normal;
+  }
+}
+
+.header {
+  grid-area: header;
+  align-self: flex-start;
+}
+
+.body {
+  grid-area: body;
+  align-self: center;
+}
+
+.footer {
+  grid-area: footer;
+  align-self: flex-end;
+}
