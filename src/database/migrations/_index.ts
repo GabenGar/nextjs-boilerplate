@@ -1,5 +1,5 @@
 import { DATABASE_CLIENT_CONFIG } from "#environment/derived-vars";
-import { cjsDirname } from "#lib/util";
+import { cjsDirname } from "#server/util";
 import migrateDB from "node-pg-migrate";
 
 const migrationsFolder = cjsDirname(import.meta.url).__dirname;

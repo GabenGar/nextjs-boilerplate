@@ -18,3 +18,8 @@ declare module "iron-session" {
     account_id?: number;
   }
 }
+
+// declare module "*.sql" {
+//   const content: string;
+//   export default content;
+// }

@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "#environment/*": ["environment/*"],
-      "#server/*": ["src/server/*"],
+      "#server/*": ["src/server/*/_index.ts"],
       "#database": ["src/database/_index.ts"],
       "#database/*": ["src/database/*/_index.ts"],
       "#assets": ["src/assets/_index.ts"],
