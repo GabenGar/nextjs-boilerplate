@@ -2,7 +2,7 @@
   "title": "Account",
   "description": "Account on the resource.",
   "type": "object",
-  "required": ["id", "created_at", "name", "password"],
+  "required": ["id", "created_at", "name", "password", "role", "is_verified"],
   "properties": {
     "id": {
       "type": "integer"
@@ -29,6 +29,11 @@
     },
     "role": {
       "type": "string"
+    },
+    "is_verified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is `true` after account confirms its email."
     }
   }
 }

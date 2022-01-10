@@ -5,7 +5,7 @@ import { LinkInternal } from "#components/links";
 import { Page } from "#components/pages";
 import { AccountCard } from "#components/cards";
 import { Nav } from "#components/navigation";
-import styles from "./index.module.scss"
+import styles from "./index.module.scss";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
@@ -24,11 +24,17 @@ function AccountPage({
         <title>Account page</title>
         <meta name="description" content="Account page" />
       </Head>
-      {IS_DEVELOPMENT && (
-        <Nav>
+
+      <Nav>
+        {!account.email && (
+          <LinkInternal href="/account/email">Add email</LinkInternal>
+        )}
+
+        {IS_DEVELOPMENT && (
           <LinkInternal href="/account/admin">Admin</LinkInternal>
-        </Nav>
-      )}
+        )}
+      </Nav>
+
       <AccountCard className={styles.account} account={account} />
     </Page>
   );

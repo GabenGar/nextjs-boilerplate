@@ -1,3 +1,9 @@
 ALTER TABLE accounts 
+  ADD COLUMN is_verified NOT NULL DEFAULT false
   ALTER COLUMN role SET NOT NULL
   ALTER COLUMN role SET DEFAULT "user"
+
+CREATE TABLE account_confirmations (
+  "id" SERIAL PRIMARY KEY,
+  "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+)

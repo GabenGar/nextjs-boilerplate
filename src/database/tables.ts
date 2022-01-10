@@ -22,6 +22,6 @@ export async function setupTables(db: IDatabase<any>) {
   `;
 
   await db.none(tablesQuery);
-  const result = await runMigrations();
+  // const result = await runMigrations();
   console.log("Finished setting tables up.");
 }
