@@ -1,3 +1,3 @@
-ALTER TABLE accounts (
-  
-)
+ALTER TABLE accounts 
+  ALTER COLUMN role SET NOT NULL
+  ALTER COLUMN role SET DEFAULT "user"

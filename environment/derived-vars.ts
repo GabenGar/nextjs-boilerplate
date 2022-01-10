@@ -19,3 +19,4 @@ export const DATABASE_CLIENT_CONFIG: ClientConfig = {
   // https://help.heroku.com/MDM23G46/why-am-i-getting-an-error-when-i-upgrade-to-pg-8
   ssl: !IS_DEVELOPMENT && { rejectUnauthorized: false },
 };
+export const IS_BROWSER = typeof window !== 'undefined'

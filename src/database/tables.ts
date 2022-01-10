@@ -1,3 +1,4 @@
+import { runMigrations } from "#database/migrations";
 import { testConnection } from "./lib";
 
 import type { IDatabase } from "pg-promise";
@@ -21,5 +22,6 @@ export async function setupTables(db: IDatabase<any>) {
   `;
 
   await db.none(tablesQuery);
+  const result = await runMigrations();
   console.log("Finished setting tables up.");
 }
