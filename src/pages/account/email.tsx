@@ -1,11 +1,7 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
-import { LinkInternal } from "#components/links";
 import { Page } from "#components/pages";
-import { AccountCard } from "#components/cards";
-import { Nav } from "#components/navigation";
-import styles from "./index.module.scss";
+import { Form } from "#components/forms";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
@@ -15,27 +11,16 @@ interface AccountPageProps extends BasePageProps {
   account: AccountClient;
 }
 
-function AccountPage({
+function AccountEmailPage({
   account,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <Page heading="Account page">
+    <Page heading="Account Email">
       <Head>
-        <title>Account page</title>
-        <meta name="description" content="Account page" />
+        <title>Account Email</title>
+        <meta name="description" content="Account Email" />
       </Head>
-
-      <Nav>
-        <LinkInternal href="/account/email">
-          {account.email ? "Email" : "Add email"}
-        </LinkInternal>
-
-        {IS_DEVELOPMENT && (
-          <LinkInternal href="/account/admin">Admin</LinkInternal>
-        )}
-      </Nav>
-
-      <AccountCard className={styles.account} account={account} />
+      <Form method="POST"></Form>
     </Page>
   );
 }
@@ -61,6 +46,7 @@ export const getServerSideProps = withSessionSSR<AccountPageProps>(
         notFound: true,
       };
     }
+
     const { id, password, ...accountClient } = account;
     return {
       props: {
@@ -70,4 +56,4 @@ export const getServerSideProps = withSessionSSR<AccountPageProps>(
   }
 );
 
-export default AccountPage;
+export default AccountEmailPage;
