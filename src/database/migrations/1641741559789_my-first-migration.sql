@@ -5,7 +5,8 @@ ALTER TABLE accounts
 
 CREATE TABLE email_confirmations (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  account_id INT REFERENCES accounts,
+  account_id INT UNIQUE REFERENCES accounts,
+  confirmation_key TEXT UNIQUE NOT NULL,
   created_at TIMESTAMPZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   expires_at TIMESTAMPZ NOT NULL
 )

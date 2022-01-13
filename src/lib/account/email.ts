@@ -8,7 +8,7 @@ export function validateEmailString(
   const errors = new ValidationErrors();
 
   if (!isEmail(formattedEmail)) {
-    errors.addError("email", "Not a valid email string.")
+    errors.addError("email", "Not a valid email string.");
   }
 
   if (errors.size) {
@@ -24,4 +24,6 @@ export function validateEmailString(
   };
 }
 
-export async function validateEmailAddress() {}
+export async function confirmEmailAddress(email: string) {
+  return ""
+}

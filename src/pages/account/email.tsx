@@ -9,14 +9,19 @@ import { FormSectionEmail } from "#components/forms/sections";
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
-import { validateEmailString } from "src/lib/account/email";
+import {
+  confirmEmailAddress,
+  validateEmailString,
+} from "src/lib/account/email";
 
 interface AccountEmailProps extends BasePageProps {
   account: AccountClient;
+  newEmail?: string;
 }
 
 function AccountEmailPage({
   account,
+  newEmail,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Page heading="Account Email">
@@ -26,11 +31,21 @@ function AccountEmailPage({
       </Head>
       <Form method="POST">
         {account.email && (
-          <FormSectionEmail id="email-current" name="current_email" isReadOnly>
+          <FormSectionEmail
+            id="email-current"
+            name="current_email"
+            isReadOnly
+            defaultValue={account.email}
+          >
             Current Email
           </FormSectionEmail>
         )}
-        <FormSectionEmail id="email-new" name="new_email" required>
+        <FormSectionEmail
+          id="email-new"
+          name="new_email"
+          required
+          defaultValue={newEmail}
+        >
           New Email
         </FormSectionEmail>
       </Form>
@@ -74,16 +89,22 @@ export const getServerSideProps = withSessionSSR<AccountEmailProps>(
         };
       }
 
-      const { isValid, errors, modifiedResult } = validateEmailString(new_email);
+      const {
+        isValid,
+        errors,
+        modifiedResult: formattedEmail,
+      } = validateEmailString(new_email);
 
       if (!isValid) {
         return {
           props: {
             account: accountClient,
-
-          }
-        }
+            errors: errors!.toDict(),
+          },
+        };
       }
+
+      await confirmEmailAddress(formattedEmail!);
     }
 
     return {
