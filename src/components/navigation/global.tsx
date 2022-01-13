@@ -7,15 +7,14 @@ import { LinkInternal } from "#components/links";
 import styles from "./global.module.scss";
 
 import type { HTMLNavProps } from "#components/html/nav";
-import clsx from "clsx";
 
-export interface NavItem {
+export interface INavItem {
   link: string;
   title: string;
 }
 
 export interface GlobalNavProps extends HTMLNavProps {
-  navItems: NavItem[];
+  navItems: INavItem[];
 }
 
 export const GlobalNav = blockComponent<GlobalNavProps>(

@@ -1,13 +1,17 @@
 import Head from "next/head";
+import { getReqBody } from "#lib/util";
+
 import { getAccountDetails, withSessionSSR } from "#lib/account";
 import { Page } from "#components/pages";
 import { Form } from "#components/forms";
+import { FormSectionEmail } from "#components/forms/sections";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
+import { validateEmailString } from "src/lib/account/email";
 
-interface AccountPageProps extends BasePageProps {
+interface AccountEmailProps extends BasePageProps {
   account: AccountClient;
 }
 
@@ -20,12 +24,21 @@ function AccountEmailPage({
         <title>Account Email</title>
         <meta name="description" content="Account Email" />
       </Head>
-      <Form method="POST"></Form>
+      <Form method="POST">
+        {account.email && (
+          <FormSectionEmail id="email-current" name="current_email" isReadOnly>
+            Current Email
+          </FormSectionEmail>
+        )}
+        <FormSectionEmail id="email-new" name="new_email" required>
+          New Email
+        </FormSectionEmail>
+      </Form>
     </Page>
   );
 }
 
-export const getServerSideProps = withSessionSSR<AccountPageProps>(
+export const getServerSideProps = withSessionSSR<AccountEmailProps>(
   async ({ req }) => {
     const { account_id } = req.session;
 
@@ -48,6 +61,31 @@ export const getServerSideProps = withSessionSSR<AccountPageProps>(
     }
 
     const { id, password, ...accountClient } = account;
+
+    if (req.method === "POST") {
+      const { new_email } = await getReqBody<{ new_email: string }>(req);
+
+      if (!new_email?.trim()) {
+        return {
+          props: {
+            errors: ["No email address provided."],
+            account: accountClient,
+          },
+        };
+      }
+
+      const { isValid, errors, modifiedResult } = validateEmailString(new_email);
+
+      if (!isValid) {
+        return {
+          props: {
+            account: accountClient,
+
+          }
+        }
+      }
+    }
+
     return {
       props: {
         account: accountClient,

@@ -1,5 +1,5 @@
-export { Nav } from "./base";
-export type { NavProps } from "./base";
+export { Nav, NavList, NavItem } from "./base";
+export type { NavProps, NavListProps, NavItemProps, NavLinkProps } from "./base";
 
 export { GlobalNav } from "./global";
-export type { GlobalNavProps, NavItem } from "./global";
+export type { GlobalNavProps, INavItem } from "./global";
