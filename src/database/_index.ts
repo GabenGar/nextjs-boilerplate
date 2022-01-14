@@ -1,2 +1,1 @@
-export { getDB } from "./get-db";
-export { sqlQuery } from "./lib";
+export { sqlQuery, getDB } from "./lib";

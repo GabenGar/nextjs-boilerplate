@@ -20,7 +20,7 @@ const nextJSConfig = {
       // import `.sql` as inline strings
       config.module.rules.push({
         test: /\.sql$/i,
-        type: "asset/source",
+        type: "asset/resource",
       });
     }
 

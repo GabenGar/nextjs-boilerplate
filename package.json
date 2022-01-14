@@ -5,9 +5,13 @@
     "prepare": "husky install",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "npm run migrate:up",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "node-pg-migrate"
+    "migrate": "node-pg-migrate",
+    "migrate:create": "node-pg-migrate create -- --migrations-dir src/database/migrations --migration-filename-format utc",
+    "migrate:up": "node-pg-migrate up -- --migrations-dir src/database/migrations --reject-unauthorized false",
+    "migrate:up:dev": "node-pg-migrate up --config-file migration-config.json --migrations-dir src/database/migrations --verbose"
   },
   "dependencies": {
     "clsx": "^1.1.1",

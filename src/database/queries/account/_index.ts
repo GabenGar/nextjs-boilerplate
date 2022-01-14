@@ -1,17 +1,17 @@
 import { nanoid } from "nanoid";
+import { DAY } from "#environment/constants/durations";
 import { toISOString } from "#lib/util/dates";
 import { getDB, sqlQuery } from "#database";
 import addEmailConfirmQuery from "./addEmailConfirmation.sql";
 import getEmailConfirmQueryByKey from "./getEmailConfirmationByKey.sql";
 
 import type { Account, AccCreds, EmailConfirmation } from "#types/entities";
-import { DAY } from "#environment/constants/durations";
 
+const { db } = getDB();
 const emailConfirmAddSQL = sqlQuery(addEmailConfirmQuery);
 const getEmailConfirmByKey = sqlQuery(getEmailConfirmQueryByKey);
 
 export async function addAccount(name: string, password: string) {
-  const { db } = await getDB();
   const query = `
     INSERT INTO accounts (name, password)
     VALUES ($(name), $(password))
@@ -22,7 +22,6 @@ export async function addAccount(name: string, password: string) {
 }
 
 export async function findAccount({ name, password }: AccCreds) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -36,7 +35,6 @@ export async function findAccount({ name, password }: AccCreds) {
 }
 
 export async function findAccountByName({ name }: AccCreds) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -49,7 +47,6 @@ export async function findAccountByName({ name }: AccCreds) {
 }
 
 export async function getAccount(id: number) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -61,7 +58,6 @@ export async function getAccount(id: number) {
 }
 
 export async function addEmailConfirmation(account_id: number) {
-  const { db } = await getDB();
   const expirationDate = new Date(Date.now() + DAY);
   const expires_at = toISOString(expirationDate);
   const confirmation_key = nanoid();
@@ -75,8 +71,6 @@ export async function addEmailConfirmation(account_id: number) {
 }
 
 export async function findEmailConfirmationByKey(confirmation_key: string) {
-  const { db } = await getDB();
-
   const confirmation = await db.oneOrNone<EmailConfirmation>(
     getEmailConfirmByKey,
     {
@@ -84,5 +78,5 @@ export async function findEmailConfirmationByKey(confirmation_key: string) {
     }
   );
 
-  return confirmation
+  return confirmation;
 }
