@@ -27,11 +27,14 @@ function AccountPage({
 
       <Nav>
         <NavList>
-          <NavItem>
-            <LinkInternal href="/account/email">
-              {account.email ? "Email" : "Add email"}
-            </LinkInternal>
-          </NavItem>
+          {IS_DEVELOPMENT && (
+            <NavItem>
+              <LinkInternal href="/account/email">
+                {account.email ? "Email" : "Add email"}
+              </LinkInternal>
+            </NavItem>
+          )}
+
           {IS_DEVELOPMENT && (
             <NavItem>
               <LinkInternal href="/account/admin">Admin</LinkInternal>

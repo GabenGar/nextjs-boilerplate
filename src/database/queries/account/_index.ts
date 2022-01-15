@@ -1,15 +1,11 @@
 import { nanoid } from "nanoid";
 import { DAY } from "#environment/constants/durations";
 import { toISOString } from "#lib/util/dates";
-import { getDB, sqlQuery } from "#database";
-import addEmailConfirmQuery from "./addEmailConfirmation.sql";
-import getEmailConfirmQueryByKey from "./getEmailConfirmationByKey.sql";
+import { getDB } from "#database";
 
 import type { Account, AccCreds, EmailConfirmation } from "#types/entities";
 
 const { db } = getDB();
-const emailConfirmAddSQL = sqlQuery(addEmailConfirmQuery);
-const getEmailConfirmByKey = sqlQuery(getEmailConfirmQueryByKey);
 
 export async function addAccount(name: string, password: string) {
   const query = `
@@ -61,8 +57,14 @@ export async function addEmailConfirmation(account_id: number) {
   const expirationDate = new Date(Date.now() + DAY);
   const expires_at = toISOString(expirationDate);
   const confirmation_key = nanoid();
+  const query = `
+    INSERT INTO email_confirmations 
+      (account_id, confirmation_key, expires_at)
+    VALUES ($(account_id), $(confirmation_key), $(expires_at))
+    RETURNING *
+  `;
 
-  const confirmation = await db.one<EmailConfirmation>(emailConfirmAddSQL, {
+  const confirmation = await db.one<EmailConfirmation>(query, {
     account_id,
     confirmation_key,
     expires_at,
@@ -71,12 +73,15 @@ export async function addEmailConfirmation(account_id: number) {
 }
 
 export async function findEmailConfirmationByKey(confirmation_key: string) {
-  const confirmation = await db.oneOrNone<EmailConfirmation>(
-    getEmailConfirmByKey,
-    {
-      confirmation_key,
-    }
-  );
+  const query = `
+    SELECT *
+    FROM email_confirmations
+    WHERE
+      confirmation_key = $(confirmation_key)
+  `;
+  const confirmation = await db.oneOrNone<EmailConfirmation>(query, {
+    confirmation_key,
+  });
 
   return confirmation;
 }

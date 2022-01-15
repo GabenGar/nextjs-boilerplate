@@ -5,7 +5,6 @@ import { QueryFile } from "pg-promise";
 import { DATABASE_CLIENT_CONFIG } from "#environment/derived-vars";
 import { createSingleton } from "#lib/util";
 
-import type {  } from "pg"
 import type { IInitOptions, IDatabase, IMain } from "pg-promise";
 import type {
   IClient,
