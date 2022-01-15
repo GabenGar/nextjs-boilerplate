@@ -4,8 +4,8 @@ import { getAccountDetails, withSessionSSR } from "#lib/account";
 import { LinkInternal } from "#components/links";
 import { Page } from "#components/pages";
 import { AccountCard } from "#components/cards";
-import { Nav } from "#components/navigation";
-import styles from "./index.module.scss"
+import { Nav, NavItem, NavList } from "#components/navigation";
+import styles from "./index.module.scss";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
@@ -24,11 +24,25 @@ function AccountPage({
         <title>Account page</title>
         <meta name="description" content="Account page" />
       </Head>
-      {IS_DEVELOPMENT && (
-        <Nav>
-          <LinkInternal href="/account/admin">Admin</LinkInternal>
-        </Nav>
-      )}
+
+      <Nav>
+        <NavList>
+          {IS_DEVELOPMENT && (
+            <NavItem>
+              <LinkInternal href="/account/email">
+                {account.email ? "Email" : "Add email"}
+              </LinkInternal>
+            </NavItem>
+          )}
+
+          {IS_DEVELOPMENT && (
+            <NavItem>
+              <LinkInternal href="/account/admin">Admin</LinkInternal>
+            </NavItem>
+          )}
+        </NavList>
+      </Nav>
+
       <AccountCard className={styles.account} account={account} />
     </Page>
   );

@@ -6,6 +6,7 @@ import {
   registerAccount,
   withSessionSSR,
 } from "#lib/account";
+import { Page } from "#components/pages";
 import { Form } from "#components/forms";
 import { ErrorsView } from "#components/errors";
 import {
@@ -16,7 +17,6 @@ import {
 import type { InferGetServerSidePropsType } from "next";
 import type { AccCreds } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
-import { Page } from "#components/pages";
 
 interface RegisterPageProps extends BasePageProps {
   accCreds?: AccCreds;

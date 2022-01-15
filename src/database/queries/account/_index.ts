@@ -1,9 +1,13 @@
+import { nanoid } from "nanoid";
+import { DAY } from "#environment/constants/durations";
+import { toISOString } from "#lib/util/dates";
 import { getDB } from "#database";
 
-import type { Account, AccCreds } from "#types/entities";
+import type { Account, AccCreds, EmailConfirmation } from "#types/entities";
+
+const { db } = getDB();
 
 export async function addAccount(name: string, password: string) {
-  const { db } = await getDB();
   const query = `
     INSERT INTO accounts (name, password)
     VALUES ($(name), $(password))
@@ -14,7 +18,6 @@ export async function addAccount(name: string, password: string) {
 }
 
 export async function findAccount({ name, password }: AccCreds) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -28,7 +31,6 @@ export async function findAccount({ name, password }: AccCreds) {
 }
 
 export async function findAccountByName({ name }: AccCreds) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -41,7 +43,6 @@ export async function findAccountByName({ name }: AccCreds) {
 }
 
 export async function getAccount(id: number) {
-  const { db } = await getDB();
   const query = `
     SELECT *
     FROM accounts
@@ -50,4 +51,37 @@ export async function getAccount(id: number) {
 
   const account = await db.oneOrNone<Account>(query, { id });
   return account;
+}
+
+export async function addEmailConfirmation(account_id: number) {
+  const expirationDate = new Date(Date.now() + DAY);
+  const expires_at = toISOString(expirationDate);
+  const confirmation_key = nanoid();
+  const query = `
+    INSERT INTO email_confirmations 
+      (account_id, confirmation_key, expires_at)
+    VALUES ($(account_id), $(confirmation_key), $(expires_at))
+    RETURNING *
+  `;
+
+  const confirmation = await db.one<EmailConfirmation>(query, {
+    account_id,
+    confirmation_key,
+    expires_at,
+  });
+  return confirmation;
+}
+
+export async function findEmailConfirmationByKey(confirmation_key: string) {
+  const query = `
+    SELECT *
+    FROM email_confirmations
+    WHERE
+      confirmation_key = $(confirmation_key)
+  `;
+  const confirmation = await db.oneOrNone<EmailConfirmation>(query, {
+    confirmation_key,
+  });
+
+  return confirmation;
 }

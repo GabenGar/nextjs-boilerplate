@@ -29,7 +29,7 @@ export const Nav = blockComponent<NavProps>(
 );
 
 export const NavList = blockComponent<NavListProps>(
-  styles.block,
+  styles.list,
   ({ isOrdered = false, children, ...blockProps }) => {
     return isOrdered ? (
       <HTMLOl {...blockProps}>{children}</HTMLOl>
@@ -40,7 +40,7 @@ export const NavList = blockComponent<NavListProps>(
 );
 
 export const NavItem = blockComponent<NavItemProps>(
-  styles.block,
+  styles.item,
   ({ children, ...blockProps }) => {
     return <HTMLLi {...blockProps}>{children}</HTMLLi>;
   }
