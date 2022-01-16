@@ -12,7 +12,7 @@
     "lint": "next lint",
     "migrate": "node-pg-migrate",
     "migrate:create": "node-pg-migrate create -- --migrations-dir src/database/migrations --migration-filename-format utc",
-    "migrate:up": "node-pg-migrate up -- --migrations-dir src/database/migrations --reject-unauthorized false",
+    "migrate:up": "node-pg-migrate up --migrations-dir src/database/migrations --reject-unauthorized false",
     "migrate:up:dev": "node-pg-migrate up --config-file migration-config.json --migrations-dir src/database/migrations --verbose"
   },
   "dependencies": {
