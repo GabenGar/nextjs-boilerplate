@@ -1,6 +1,6 @@
 import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
-import { SITE_NAME, SECRET_KEY } from "#environment/env-vars";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
+import { SITE_NAME, SECRET_KEY } from "#environment/vars";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import type { IronSessionOptions } from "iron-session";
 import type {
   GetServerSidePropsContext,

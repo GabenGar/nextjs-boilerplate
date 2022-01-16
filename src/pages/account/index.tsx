@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
 import { LinkInternal } from "#components/links";
 import { Page } from "#components/pages";

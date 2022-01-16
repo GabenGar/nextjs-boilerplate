@@ -7,3 +7,7 @@ export const DATABASE_NAME = process.env.DATABASE_NAME!;
 export const DATABASE_USER = process.env.DATABASE_USER!;
 export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD!;
 export const SECRET_KEY = process.env.SECRET_KEY!;
+export const EMAIL_SMTP_HOSTNAME = process.env.EMAIL_SMTP_HOSTNAME!;
+export const EMAIL_PORT = process.env.EMAIL_PORT!;
+export const EMAIL_USERNAME = process.env.EMAIL_USERNAME!;
+export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD!;

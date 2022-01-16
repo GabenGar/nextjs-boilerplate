@@ -1,4 +1,4 @@
-import { SITE_ORIGIN } from "#environment/env-vars";
+import { SITE_ORIGIN } from "#environment/vars";
 import { createFetch } from "#lib/util";
 
 const baseFetch = createFetch(SITE_ORIGIN);

@@ -1,4 +1,4 @@
-import { SITE_ORIGIN } from "#environment/env-vars";
+import { SITE_ORIGIN } from "#environment/vars";
 
 export interface IRequestOptions extends RequestInit {
   params?: URLSearchParams;

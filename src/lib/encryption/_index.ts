@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import { SECRET_KEY } from "#environment/env-vars";
+import { SECRET_KEY } from "#environment/vars";
 
 export interface Encryption {
   encryptString(str: string): string;

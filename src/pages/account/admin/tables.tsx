@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import { Form } from "#components/forms";
 import { clearAccounts } from "#database/queries/account/admin";
 
