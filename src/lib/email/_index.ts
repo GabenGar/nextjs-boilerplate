@@ -4,6 +4,7 @@ import {
   EMAIL_PORT,
   EMAIL_USERNAME,
   EMAIL_PASSWORD,
+  EMAIL_ADDRESS,
 } from "#environment/vars";
 
 import type { SendMailOptions } from "nodemailer";
@@ -12,13 +13,15 @@ const transporter = createTransport(
   {
     host: EMAIL_SMTP_HOSTNAME,
     port: Number(EMAIL_PORT),
-    secure: true,
+    secure: Number(EMAIL_PORT) === 465,
     auth: {
       user: EMAIL_USERNAME,
       pass: EMAIL_PASSWORD,
     },
   },
-  {}
+  {
+    from: EMAIL_ADDRESS
+  }
 );
 
 (async () => {

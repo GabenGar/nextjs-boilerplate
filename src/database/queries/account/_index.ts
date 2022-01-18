@@ -53,20 +53,24 @@ export async function getAccount(id: number) {
   return account;
 }
 
-export async function addEmailConfirmation(account_id: number) {
+export async function createEmailConfirmation(
+  account_id: number,
+  email: string,
+  confirmation_key: string
+) {
   const expirationDate = new Date(Date.now() + DAY);
   const expires_at = toISOString(expirationDate);
-  const confirmation_key = nanoid();
   const query = `
     INSERT INTO email_confirmations 
-      (account_id, confirmation_key, expires_at)
-    VALUES ($(account_id), $(confirmation_key), $(expires_at))
+      (account_id, confirmation_key, email, expires_at)
+    VALUES ($(account_id), $(confirmation_key), $(email), $(expires_at))
     RETURNING *
   `;
 
   const confirmation = await db.one<EmailConfirmation>(query, {
     account_id,
     confirmation_key,
+    email,
     expires_at,
   });
   return confirmation;

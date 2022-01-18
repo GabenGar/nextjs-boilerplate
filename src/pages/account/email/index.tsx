@@ -10,18 +10,20 @@ import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
 import {
-  confirmEmailAddress,
+  sendEmailConfirmation,
   validateEmailString,
 } from "src/lib/account/email";
 
 interface AccountEmailProps extends BasePageProps {
   account: AccountClient;
   newEmail?: string;
+  isSent?: boolean;
 }
 
 function AccountEmailPage({
   account,
   newEmail,
+  isSent
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Page heading="Account Email">
@@ -48,6 +50,7 @@ function AccountEmailPage({
         >
           New Email
         </FormSectionEmail>
+        {isSent && (<p>The confirmation link is sent to your email.</p>)}
       </Form>
     </Page>
   );
@@ -55,7 +58,6 @@ function AccountEmailPage({
 
 export const getServerSideProps = withSessionSSR<AccountEmailProps>(
   async ({ req }) => {
-
     if (!IS_DEVELOPMENT) {
       return {
         notFound: true,
@@ -111,7 +113,14 @@ export const getServerSideProps = withSessionSSR<AccountEmailProps>(
         };
       }
 
-      await confirmEmailAddress(formattedEmail!);
+      const confirmation = await sendEmailConfirmation(formattedEmail!, account_id);
+
+      return {
+        props: {
+          account: accountClient,
+          isSent: true
+        }
+      }
     }
 
     return {

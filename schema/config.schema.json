@@ -35,6 +35,11 @@
       "default": "no-verify",
       "description": "Required for migrations to work on heroku-deployed DB."
     },
+    "EMAIL_ADDRESS": {
+      "type": "string",
+      "format": "email",
+      "default": "FLYING POLAR BUFFALO ERROR"
+    },
     "EMAIL_SMTP_HOSTNAME": {
       "default": "FLYING POLAR BUFFALO ERROR"
     },
