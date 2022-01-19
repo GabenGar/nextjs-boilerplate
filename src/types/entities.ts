@@ -19,6 +19,7 @@ export interface AccCreds {
 export interface EmailConfirmation {
   id: number;
   account_id: number;
+  email: string;
   confirmation_key: string;
   created_at: string;
   expires_at: string;

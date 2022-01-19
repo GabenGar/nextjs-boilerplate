@@ -1,5 +1,9 @@
 import { nanoid } from "nanoid";
-import { createEmailConfirmation } from "#database/queries/account";
+import {
+  addAccountEmail,
+  createEmailConfirmation,
+  findEmailConfirmationByKey,
+} from "#database/queries/account";
 import { sendEmail } from "#lib/email";
 import { ValidationErrors, ValidationResult } from "#lib/json-schema/types";
 import { isEmail } from "#lib/util/validator";
@@ -41,7 +45,34 @@ export async function sendEmailConfirmation(email: string, account_id: number) {
     text: `Confirm your email at ${confirmationLink} .`,
   });
 
-  await createEmailConfirmation(account_id, email, confirmation_key)
+  await createEmailConfirmation(account_id, email, confirmation_key);
 
   return true;
+}
+
+/**
+ * TODO: check for expiration
+ * @param account_id 
+ * @param confirmation_key 
+ * @returns 
+ */
+export async function confirmNewEmail(
+  account_id: number,
+  confirmation_key: string
+) {
+  const confirmation = await findEmailConfirmationByKey(
+    account_id,
+    confirmation_key
+  );
+
+  if (!confirmation) {
+    console.log(
+      `Confirmation key for the accountID "${account_id}" does not exist.`
+    );
+    return undefined;
+  }
+
+  const account = await addAccountEmail(account_id, confirmation.email);
+
+  return account
 }

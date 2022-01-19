@@ -13,6 +13,7 @@ import {
   sendEmailConfirmation,
   validateEmailString,
 } from "src/lib/account/email";
+import { ErrorsView } from "#components/errors";
 
 interface AccountEmailProps extends BasePageProps {
   account: AccountClient;
@@ -21,6 +22,7 @@ interface AccountEmailProps extends BasePageProps {
 }
 
 function AccountEmailPage({
+  errors,
   account,
   newEmail,
   isSent
@@ -50,6 +52,7 @@ function AccountEmailPage({
         >
           New Email
         </FormSectionEmail>
+        {errors && <ErrorsView errors={errors} /> }
         {isSent && (<p>The confirmation link is sent to your email.</p>)}
       </Form>
     </Page>
