@@ -52,9 +52,8 @@ export async function sendEmailConfirmation(email: string, account_id: number) {
 
 /**
  * TODO: check for expiration
- * @param account_id 
- * @param confirmation_key 
- * @returns 
+ * @param account_id
+ * @param confirmation_key
  */
 export async function confirmNewEmail(
   account_id: number,
@@ -74,5 +73,5 @@ export async function confirmNewEmail(
 
   const account = await addAccountEmail(account_id, confirmation.email);
 
-  return account
+  return account;
 }

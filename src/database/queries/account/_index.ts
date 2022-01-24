@@ -20,10 +20,10 @@ export async function addAccountEmail(account_id: number, email: string) {
   const emailQuery = `
     UPDATE accounts
     SET email = $(email), is_verified = true
-    WHERE account_id = $(account_id)
+    WHERE id = $(account_id)
     RETURNING *
   `;
-  const confirmationQuery =`
+  const confirmationQuery = `
     DELETE FROM email_confirmations
     WHERE account_id = $(account_id)
     RETURNING *
@@ -31,6 +31,9 @@ export async function addAccountEmail(account_id: number, email: string) {
   const account = await db.one<Account>(emailQuery, {
     account_id,
     email,
+  });
+  await db.one<EmailConfirmation>(confirmationQuery, {
+    account_id,
   });
 
   return account;
