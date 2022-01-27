@@ -9,7 +9,7 @@ import type { BasePageProps } from "#types/pages";
 import type { ParsedUrlQuery } from "querystring";
 
 interface AccountEmailProps extends BasePageProps {
-  isSuccessful: boolean;
+  email?: string
 }
 
 interface AccountEmailParams extends ParsedUrlQuery {
@@ -17,7 +17,7 @@ interface AccountEmailParams extends ParsedUrlQuery {
 }
 
 function EmailConfirmationPage({
-  isSuccessful,
+  email,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Page heading="Confirm Email">
@@ -25,9 +25,9 @@ function EmailConfirmationPage({
         <title>Confirm Email</title>
         <meta name="description" content="Confirm Email" />
       </Head>
-      {isSuccessful && (
+      {email && (
         <p>
-          Your email was verified. Go back to{" "}
+          Your email &quot;{ email }&quot; was verified. Go back to{" "}
           <LinkInternal href="/account">account page</LinkInternal>.
         </p>
       )}
@@ -67,11 +67,11 @@ export const getServerSideProps = withSessionSSR<
 
   const { code } = params!;
 
-  await confirmNewEmail(account_id, code)
+  const { email } = await confirmNewEmail(account_id, code)
 
   return {
     props: {
-      isSuccessful: true,
+      email
     },
   };
 });

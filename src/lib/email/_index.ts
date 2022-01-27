@@ -24,9 +24,9 @@ const transporter = createTransport(
   }
 );
 
-(async () => {
-  await verifyConnection();
-})();
+// (async () => {
+//   await verifyConnection();
+// })();
 
 export async function sendEmail(emailOptions: SendMailOptions) {
   const result = await transporter.sendMail(emailOptions);

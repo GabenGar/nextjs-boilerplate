@@ -65,10 +65,7 @@ export async function confirmNewEmail(
   );
 
   if (!confirmation) {
-    console.log(
-      `Confirmation key for the accountID "${account_id}" does not exist.`
-    );
-    return undefined;
+    throw new Error( `Confirmation key for the accountID "${account_id}" does not exist.`)
   }
 
   const account = await addAccountEmail(account_id, confirmation.email);
