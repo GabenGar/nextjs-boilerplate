@@ -1,9 +1,17 @@
 import Head from "next/head";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import { Page } from "#components/pages";
+
+import type { ParsedUrlQuery } from "querystring";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 interface ITemplatePageProps {}
 
-function TemplatePage() {
+interface ITemplatePageParams extends ParsedUrlQuery {}
+
+function TemplatePage({}: InferGetServerSidePropsType<
+  typeof getServerSideProps
+>) {
   return (
     <Page heading="Template heading">
       <Head>
@@ -14,10 +22,20 @@ function TemplatePage() {
   );
 }
 
-// export const getServerSideProps:GetServerSideProps = async (context) => {
-//   return {
-//     props: {}
-//   }
-// }
+export const getServerSideProps: GetServerSideProps<
+  ITemplatePageProps,
+  ITemplatePageParams
+> = async (context) => {
 
-// export default TemplatePage;
+  if (!IS_DEVELOPMENT) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+export default TemplatePage;

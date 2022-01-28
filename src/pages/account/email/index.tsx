@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived";
 import { getReqBody } from "#lib/util";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
 import { Page } from "#components/pages";
@@ -61,11 +60,6 @@ function AccountEmailPage({
 
 export const getServerSideProps = withSessionSSR<AccountEmailProps>(
   async ({ req }) => {
-    if (!IS_DEVELOPMENT) {
-      return {
-        notFound: true,
-      };
-    }
 
     const { account_id } = req.session;
 
