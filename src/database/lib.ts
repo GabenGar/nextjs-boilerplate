@@ -2,7 +2,7 @@ import path from "path";
 import pgLib from "pg-promise";
 import { QueryFile } from "pg-promise";
 
-import { DATABASE_CLIENT_CONFIG } from "#environment/derived-vars";
+import { DATABASE_CLIENT_CONFIG } from "#environment/derived";
 import { createSingleton } from "#lib/util";
 
 import type { IInitOptions, IDatabase, IMain } from "pg-promise";

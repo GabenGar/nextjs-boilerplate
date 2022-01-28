@@ -33,6 +33,7 @@ export const FormSectionEmail = blockComponent<FormSectionEmailProps>(
           required={required}
           defaultValue={defaultValue}
           readOnly={isReadOnly}
+          autoComplete="email"
         />
       </FormSection>
     );

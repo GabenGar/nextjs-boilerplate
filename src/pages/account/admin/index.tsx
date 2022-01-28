@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import { getAccountList } from "#lib/account/admin";
 import { LinkInternal } from "#components/links";
 

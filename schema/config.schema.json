@@ -3,32 +3,57 @@
   "description": "Config for the project.",
   "properties": {
     "NEXT_PUBLIC_SITE_ORIGIN": {
-      "type":"string",
-      "default": "FLYING POLAR BUFFALLO ERROR"
+      "type": "string",
+      "format": "uri",
+      "default": "http://localhost:3000",
+      "description": "The origin of the site."
     },
     "NEXT_PUBLIC_SITE_NAME": {
-      "type":"string",
-      "default": "FLYING POLAR BUFFALLO ERROR"
+      "type": "string",
+      "default": "LOCALHOST"
+    },
+    "NEXT_PUBLIC_EMAIL_ADDRESS": {
+      "type": "string",
+      "format": "email",
+      "default": "FLYING POLAR BUFFALO ERROR"
     },
     "DATABASE_HOSTNAME": {
-      "type":"string",
+      "type": "string",
       "default": "localhost"
     },
     "DATABASE_PORT": {
-      "type":"integer",
+      "type": "integer",
       "default": 5432
     },
     "DATABASE_NAME": {
-      "type":"string",
+      "type": "string",
       "default": "FLYING POLAR BUFFALLO ERROR"
     },
     "DATABASE_USER": {
-      "type":"string",
+      "type": "string",
       "default": "FLYING POLAR BUFFALLO ERROR"
     },
     "DATABASE_PASSWORD": {
-      "type":"string",
+      "type": "string",
       "default": "FLYING POLAR BUFFALLO ERROR"
+    },
+    "PGSSLMODE": {
+      "type": "string",
+      "default": "no-verify",
+      "description": "Required for migrations to work on heroku-deployed DB."
+    },
+    "EMAIL_SMTP_HOSTNAME": {
+      "default": "FLYING POLAR BUFFALO ERROR"
+    },
+    "EMAIL_PORT": {
+      "type": "integer",
+      "default": 465
+    },
+    "EMAIL_USERNAME": {
+      "default": "FLYING POLAR BUFFALO ERROR"
+    },
+    "EMAIL_PASSWORD": {
+      "default": "FLYING POLAR BUFFALO ERROR"
     }
   }
 }

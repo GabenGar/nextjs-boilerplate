@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { IS_DEVELOPMENT } from "#environment/derived-vars";
+import { IS_DEVELOPMENT } from "#environment/derived";
 import { getReqBody } from "#lib/util";
 import { getAccountDetails, withSessionSSR } from "#lib/account";
 import { Page } from "#components/pages";
@@ -10,18 +10,22 @@ import type { InferGetServerSidePropsType } from "next";
 import type { AccountClient } from "#types/entities";
 import type { BasePageProps } from "#types/pages";
 import {
-  confirmEmailAddress,
+  sendEmailConfirmation,
   validateEmailString,
 } from "src/lib/account/email";
+import { ErrorsView } from "#components/errors";
 
 interface AccountEmailProps extends BasePageProps {
   account: AccountClient;
   newEmail?: string;
+  isSent?: boolean;
 }
 
 function AccountEmailPage({
+  errors,
   account,
   newEmail,
+  isSent
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Page heading="Account Email">
@@ -48,6 +52,8 @@ function AccountEmailPage({
         >
           New Email
         </FormSectionEmail>
+        {errors && <ErrorsView errors={errors} /> }
+        {isSent && (<p>The confirmation link is sent to your email.</p>)}
       </Form>
     </Page>
   );
@@ -55,7 +61,6 @@ function AccountEmailPage({
 
 export const getServerSideProps = withSessionSSR<AccountEmailProps>(
   async ({ req }) => {
-
     if (!IS_DEVELOPMENT) {
       return {
         notFound: true,
@@ -111,7 +116,14 @@ export const getServerSideProps = withSessionSSR<AccountEmailProps>(
         };
       }
 
-      await confirmEmailAddress(formattedEmail!);
+      const confirmation = await sendEmailConfirmation(formattedEmail!, account_id);
+
+      return {
+        props: {
+          account: accountClient,
+          isSent: true
+        }
+      }
     }
 
     return {

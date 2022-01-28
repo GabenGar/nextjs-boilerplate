@@ -1,0 +1,27 @@
+{
+  "title": "EmailConfimation",
+  "description": "Confirmation data for email.",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "account_id": {
+      "type": "integer"
+    },
+    "confirmation_key": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

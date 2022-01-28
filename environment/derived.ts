@@ -5,7 +5,7 @@ import {
   DATABASE_NAME,
   DATABASE_PORT,
   DATABASE_HOSTNAME,
-} from "./env-vars";
+} from "./vars";
 
 import type { ClientConfig } from "pg";
 

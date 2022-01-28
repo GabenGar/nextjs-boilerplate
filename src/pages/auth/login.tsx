@@ -13,6 +13,7 @@ import {
   FormSectionPassword,
   FormSectionText,
 } from "#components/forms/sections";
+import { LinkInternal } from "#components/links";
 
 import type { BasePageProps } from "#types/pages";
 import type { AccCreds } from "#types/entities";
@@ -33,6 +34,10 @@ export function LoginPage({
         <meta name="description" content="Log in to your account." />
       </Head>
       <Form method="POST">
+        <p>
+          Not registered?{" "}
+          <LinkInternal href="/auth/register">Register</LinkInternal>
+        </p>
         <FormSectionText
           id="acc-name"
           name="name"
