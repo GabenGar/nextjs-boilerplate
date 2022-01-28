@@ -8,7 +8,7 @@
   "json.schemas": [
     {
       "fileMatch": ["schema/*schema.json"],
-      "url": "./schema/meta.schema.json"
+      "url": "./schema/_meta.schema.json"
     },
     {
       "fileMatch": ["config.json"],

@@ -1,13 +1,14 @@
 {
   "name": "nextjs-scaffold",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "prepare": "husky install",
     "dev": "next dev",
-    "build": "next build",
     "prebuild": "npm run migrate:up",
-    "build:dev": "next build",
+    "build": "next build",
     "prebuild:dev": "npm run migrate:up:dev",
+    "build:dev": "next build",
     "start": "next start",
     "lint": "next lint",
     "migrate": "node-pg-migrate",

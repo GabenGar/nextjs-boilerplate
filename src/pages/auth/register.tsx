@@ -13,6 +13,7 @@ import {
   FormSectionPassword,
   FormSectionText,
 } from "#components/forms/sections";
+import { LinkInternal } from "#components/links";
 
 import type { InferGetServerSidePropsType } from "next";
 import type { AccCreds } from "#types/entities";
@@ -33,6 +34,10 @@ export function RegisterPage({
         <meta name="description" content="Register account" />
       </Head>
       <Form method="POST">
+        <p>
+          Already registered?{" "}
+          <LinkInternal href="/auth/login">Log in</LinkInternal>
+        </p>
         <FormSectionText
           id="acc-name"
           name="name"

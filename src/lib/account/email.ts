@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { SITE_ORIGIN } from "#environment/vars";
 import {
   addAccountEmail,
   createEmailConfirmation,
@@ -7,7 +8,6 @@ import {
 import { sendEmail } from "#lib/email";
 import { ValidationErrors, ValidationResult } from "#lib/json-schema/types";
 import { isEmail } from "#lib/util/validator";
-import { SITE_ORIGIN } from "#environment/vars";
 
 export function validateEmailString(
   emailString: string
@@ -42,7 +42,7 @@ export async function sendEmailConfirmation(email: string, account_id: number) {
   await sendEmail({
     to: email,
     subject: "Email Confirmation",
-    text: `Confirm your email at ${confirmationLink} .`,
+    text: `This email address was added to an account at ${SITE_ORIGIN} .\nVisit this link to confirm your email address:\n${confirmationLink} .\nIf you didn't add anything or don't know what it is, ignore this email.\n\nThis message is automatically generated, do not respond to it.`,
   });
 
   await createEmailConfirmation(account_id, email, confirmation_key);

@@ -4,11 +4,18 @@
   "properties": {
     "NEXT_PUBLIC_SITE_ORIGIN": {
       "type": "string",
-      "default": "FLYING POLAR BUFFALLO ERROR"
+      "format": "uri",
+      "default": "http://localhost:3000",
+      "description": "The origin of the site."
     },
     "NEXT_PUBLIC_SITE_NAME": {
       "type": "string",
-      "default": "FLYING POLAR BUFFALLO ERROR"
+      "default": "LOCALHOST"
+    },
+    "NEXT_PUBLIC_EMAIL_ADDRESS": {
+      "type": "string",
+      "format": "email",
+      "default": "FLYING POLAR BUFFALO ERROR"
     },
     "DATABASE_HOSTNAME": {
       "type": "string",
@@ -35,16 +42,12 @@
       "default": "no-verify",
       "description": "Required for migrations to work on heroku-deployed DB."
     },
-    "EMAIL_ADDRESS": {
-      "type": "string",
-      "format": "email",
-      "default": "FLYING POLAR BUFFALO ERROR"
-    },
     "EMAIL_SMTP_HOSTNAME": {
       "default": "FLYING POLAR BUFFALO ERROR"
     },
     "EMAIL_PORT": {
-      "default": "FLYING POLAR BUFFALO ERROR"
+      "type": "integer",
+      "default": 465
     },
     "EMAIL_USERNAME": {
       "default": "FLYING POLAR BUFFALO ERROR"
